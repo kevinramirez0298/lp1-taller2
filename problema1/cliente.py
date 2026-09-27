@@ -3,12 +3,16 @@
 Problema 1: Sockets básicos - Cliente
 Objetivo: Crear un cliente TCP que se conecte a un servidor e intercambie mensajes básicos
 """
-
+# libreria que permite la comunicacion entre servidor y cliente.
 import socket
 
 # TODO: Crear un socket TCP/IP
 # AF_INET: socket de familia IPv4
 # SOCK_STREAM: socket de tipo TCP (orientado a conexión)
+
+
+# configuracion del servidor, direccion IP del servidor 
+HOST = "127.0.0.1"
 
 # TODO: Conectar el socket al servidor en la dirección y puerto especificados
 
