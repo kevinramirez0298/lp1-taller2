@@ -11,8 +11,13 @@ import socket
 # SOCK_STREAM: socket de tipo TCP (orientado a conexión)
 
 
-# configuracion del servidor, direccion IP del servidor 
+# 1. configuracion del servidor, direccion IP del servidor 
 HOST = "127.0.0.1"
+
+# se agrega puerto para identificar a que servidor o aplicaion va dirigido.
+PORT = 5000
+
+
 
 # TODO: Conectar el socket al servidor en la dirección y puerto especificados
 
