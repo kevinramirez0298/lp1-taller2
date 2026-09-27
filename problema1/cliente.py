@@ -17,7 +17,11 @@ HOST = "127.0.0.1"
 # se agrega puerto para identificar a que servidor o aplicaion va dirigido.
 PORT = 5000
 
-
+# 2. se crea el socket del cliente.
+client_socket = socket.socket(
+    socket.AF_INET,   # Familia especificada a IPv4
+    socket.SOCK_STREAM # Permite que los datos lleguen completos y ordenados
+)
 
 # TODO: Conectar el socket al servidor en la dirección y puerto especificados
 
