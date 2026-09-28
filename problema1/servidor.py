@@ -67,5 +67,9 @@ print(f"Conexión realizada por {addr}")
 # 7.preparar una respuesta
 respuesta = "hola cliente, mensaje recibido correctamente"
 
+# envia la respuesta al cliente
+conn,sendall(respuesta.encode()) # sendall() envía todos los datos al cliente, encode() convierte el texto en bytes.
+ 
+
 # TODO: Cerrar la conexión con el cliente
 
