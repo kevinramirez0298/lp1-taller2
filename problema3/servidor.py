@@ -28,6 +28,9 @@ def handle_client(client_socket, client_name):
         try:
             # TODO: Recibir datos del cliente (hasta 1024 bytes)
             
+             # 2.Recibir datos del cliente
+            data = client_socket.recv(1024)
+
             # Si no se reciben datos, el cliente se desconectó
             if not data:
                 break
