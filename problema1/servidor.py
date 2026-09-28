@@ -26,6 +26,10 @@ server_socket = socket.socket(
 
 # TODO: Enlazar el socket a la dirección y puerto especificados
 
+# 3. asociar el servidor con la direccion y el puerto
+server_socket.bind((HOST, PORT)) # bind() conecta el socket del servidor con: HOST Y POST.
+
+
 # TODO: Poner el socket en modo escucha
 # El parámetro define el número máximo de conexiones en cola
 
