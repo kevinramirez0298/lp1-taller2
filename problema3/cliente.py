@@ -18,11 +18,11 @@ def receive_messages():
         try:
             data = client_socket.recv(1024)
 
-            # si no llegan datos, el servidor se desconecto
+            # 2. si no llegan datos, el servidor se desconecto
             if not data:
                 break
 
-            # descodificar el mensaje
+            # 3. descodificar el mensaje
             message = data.decode()    
         
             # Imprimir el mensaje recibido
@@ -39,6 +39,9 @@ client_name = input("Cuál es tu nombre? ")
 # TODO: Crear un socket TCP/IP
 # AF_INET: socket de familia IPv4
 # SOCK_STREAM: socket de tipo TCP (orientado a conexión)
+
+# 4. Crear un socket TCP/IP
+client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 # TODO: Conectar el socket al servidor en la dirección y puerto especificados
 
