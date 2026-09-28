@@ -35,10 +35,14 @@ client_socket.connect((HOTS, PORT)) # connect()
 # TODO: Enviar datos al servidor (convertidos a bytes)
 # sendall() asegura que todos los datos sean enviados
 
-# mensaje que se envia al servidor
+# crear el mensaje que se envia al servidor
 mensaje = "hola servidor, soy el cliente."
 
+# 4. se envia el mensaje al servidor
+client_socket.sendall(mensaje.encode()) #sendall()envia mensaje al servidor,encode()convierte el texto en bytes.
 
+# se muestra el mensaje que enviamos.
+print("mensaje enviado:",mensaje)
 
 
 # TODO: Recibir datos del servidor (hasta 1024 bytes)
