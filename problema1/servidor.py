@@ -18,6 +18,12 @@ PORT = 5000
 # AF_INET: socket de familia IPv4
 # SOCK_STREAM: socket de tipo TCP (orientado a conexión)
 
+# 2. se crea el socket.
+server_socket = socket.socket(
+    socket.AF_INET, # Indica que utilizaremos IPv4.
+    socket.SOCK_STREAM # Indica que utilizaremos TCP.
+)
+
 # TODO: Enlazar el socket a la dirección y puerto especificados
 
 # TODO: Poner el socket en modo escucha
