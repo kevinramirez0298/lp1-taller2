@@ -27,7 +27,6 @@ def handle_client(client_socket, client_name):
     while True:
         try:
             # TODO: Recibir datos del cliente (hasta 1024 bytes)
-            
              # 2.Recibir datos del cliente
             data = client_socket.recv(1024)
 
@@ -43,7 +42,9 @@ def handle_client(client_socket, client_name):
             
             # TODO: Retransmitir el mensaje a todos los clientes excepto al remitente
 
-            
+            # 3. Retransmitir el mensaje a todos los clientes excepto al remitente
+            broadcast(message, client_socket)
+
         except ConnectionResetError:
             # Manejar desconexión inesperada del cliente
             clients.remove(client_socket)
