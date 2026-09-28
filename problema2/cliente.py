@@ -19,6 +19,10 @@ message = input("Mensaje: ")
 # AF_INET: socket de familia IPv4
 # SOCK_STREAM: socket de tipo TCP (orientado a conexión)
 
+# Crear un socket TCP/IP
+cliente = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+
 # TODO: Conectar el socket al servidor en la dirección y puerto especificados
 
 # Mostrar mensaje que se va a enviar
