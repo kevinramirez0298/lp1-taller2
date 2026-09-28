@@ -69,7 +69,15 @@ respuesta = "hola cliente, mensaje recibido correctamente"
 
 # envia la respuesta al cliente
 conn,sendall(respuesta.encode()) # sendall() envía todos los datos al cliente, encode() convierte el texto en bytes.
- 
+
 
 # TODO: Cerrar la conexión con el cliente
 
+# 8. cerramos la conexion
+conn.close()
+
+#cerramos tambien el socket principal.
+server_socket.close()
+
+# indicamos al servidor que termino
+print("servidor finalizo")
