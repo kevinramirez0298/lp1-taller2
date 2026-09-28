@@ -26,11 +26,10 @@ client_socket = socket.socket(
 # TODO: Conectar el socket al servidor en la dirección y puerto especificados
 
 # 3. conectarse al servidor, 
-client_socket.connect((HOTS, PORT)) # connect()
- se establese una conexion con el servidor.
+client_socket.connect((HOST, PORT)) # connect() se establese una conexion con el servidor.
 
- # mostrar mensaje de conexion al servidor exitosa.
- print("conectado al servidor")
+# mostrar mensaje de conexion al servidor exitosa.
+print("conectado al servidor.")
 
 # TODO: Enviar datos al servidor (convertidos a bytes)
 # sendall() asegura que todos los datos sean enviados
