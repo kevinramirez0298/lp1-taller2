@@ -11,6 +11,8 @@ import socket
 # 1. configuracion del servidor
 HOST = "127.0.0.1"  # Se conoce como localhost
 
+# se agrega el puerto de conexion
+PORT = 5000
 
 # TODO: Crear un socket TCP/IP
 # AF_INET: socket de familia IPv4
