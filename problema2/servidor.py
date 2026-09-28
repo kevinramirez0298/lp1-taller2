@@ -64,3 +64,5 @@ while True:
 
     # TODO: Cerrar la conexión con el cliente actual
 
+    # Cerrar la conexión con el cliente actual
+    conn.close()
