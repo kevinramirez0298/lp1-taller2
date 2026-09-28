@@ -3,10 +3,14 @@
 Problema 1: Sockets básicos - Servidor
 Objetivo: Crear un servidor TCP que acepte una conexión y intercambie mensajes básicos
 """
-
+# se importa la libreria socket.
 import socket
 
 # TODO: Definir la dirección y puerto del servidor
+
+# 1. configuracion del servidor
+HOST = "127.0.0.1"  # Se conoce como localhost
+
 
 # TODO: Crear un socket TCP/IP
 # AF_INET: socket de familia IPv4
