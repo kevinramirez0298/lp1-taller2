@@ -58,8 +58,14 @@ print(f"Conexión realizada por {addr}")
  # decode() convierte los bytes nuevamente en texto.
  mensaje = datos.decode()
 
+ # mostramos el mensaje recibido
+ print("mensaje recibido:", mensaje)
+ 
 # TODO: Enviar respuesta al cliente (convertida a bytes)
 # sendall() asegura que todos los datos sean enviados
+
+# 7.preparar una respuesta
+respuesta = "hola cliente, mensaje recibido correctamente"
 
 # TODO: Cerrar la conexión con el cliente
 
