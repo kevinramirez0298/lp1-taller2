@@ -9,6 +9,10 @@ import threading
 
 # TODO: Definir la dirección y puerto del servidor
 
+# 1. Dirección y puerto del servidor
+HOST = "127.0.0.1"
+PORT = 5000
+
 # Lista para mantener todos los sockets de clientes conectados
 clients = []
 
