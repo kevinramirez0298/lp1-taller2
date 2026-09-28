@@ -10,11 +10,14 @@ import socket
 
 # 1. definir la direccion y puerto del servisor.
 HOST = "localhost"
-post = 5000
+PORT = 5000
 
 # TODO: Crear un socket TCP/IP
 # AF_INET: socket de familia IPv4
 # SOCK_STREAM: socket de tipo TCP (orientado a conexión)
+
+#CREAR UN SOCKET TCP / IP
+servidor = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 # TODO: Enlazar el socket a la dirección y puerto especificados
 
