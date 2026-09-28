@@ -8,7 +8,7 @@ import socket
 
 # TODO: Definir la dirección y puerto del servidor
 
-# Definir la dirección y puerto del servidor
+# 1.Definir la dirección y puerto del servidor
 HOST = "localhost"
 PORT = 5000
 
@@ -19,11 +19,13 @@ message = input("Mensaje: ")
 # AF_INET: socket de familia IPv4
 # SOCK_STREAM: socket de tipo TCP (orientado a conexión)
 
-# Crear un socket TCP/IP
+# 2.Crear un socket TCP/IP
 cliente = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-
 # TODO: Conectar el socket al servidor en la dirección y puerto especificados
+
+# Conectar el socket al servidor
+cliente.connect((HOST, PORT))
 
 # Mostrar mensaje que se va a enviar
 print(f"Mensaje '{message}' enviado.")
