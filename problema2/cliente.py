@@ -8,6 +8,10 @@ import socket
 
 # TODO: Definir la dirección y puerto del servidor
 
+# Definir la dirección y puerto del servidor
+HOST = "localhost"
+PORT = 5000
+
 # Solicitar mensaje al usuario por consola
 message = input("Mensaje: ")
 
