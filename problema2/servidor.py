@@ -40,6 +40,9 @@ while True:
     # conn: nuevo socket para comunicarse con el cliente
     # addr: dirección y puerto del cliente
     
+    # 5. Aceptar una conexión entrante
+    conn, addr = servidor.accept()
+
     print(f"Conexión realizada por {addr}")
 
     # TODO: Recibir datos del cliente (hasta 1024 bytes)
