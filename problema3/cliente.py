@@ -64,3 +64,5 @@ while True:
     message = input("Mensaje: ")
     # TODO: Codificar el mensaje a bytes y enviarlo al servidor
 
+    # Codificar el mensaje a bytes y enviarlo
+    client_socket.send(message.encode())
