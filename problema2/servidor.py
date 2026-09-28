@@ -27,6 +27,9 @@ servidor.bind((HOST, PORT))
 # TODO: Poner el socket en modo escucha
 # El parámetro define el número máximo de conexiones en cola
 
+# 4.Poner el socket en modo escucha
+servidor.listen(1)
+
 # Bucle infinito para manejar múltiples conexiones (una a la vez)
 while True:
 
