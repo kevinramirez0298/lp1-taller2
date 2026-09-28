@@ -55,6 +55,14 @@ datos = client_socket.recv(1024) # espera respuesta del servidor
 # 6. se conviete la respuesta en texto.
 respuesta = datos.decode() # decode() convierte esos bytes en texto.
 
+# se muestra la respuesta recibida.
+print("respuesta del servidor:", respuesta)
 
 # TODO: Cerrar la conexión con el servidor
+
+# 7. se cierra la conexion.
+client_socket.close() # cierra la conexion 
+
+# indicamos que el cliente termino
+print("cliente finalizado.")
 
