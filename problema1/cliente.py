@@ -47,6 +47,10 @@ print("mensaje enviado:",mensaje)
 
 # TODO: Recibir datos del servidor (hasta 1024 bytes)
 
+# 5. recibir respuesta del servidor
+datos = client_socket.recv(1024) # espera respuesta del servidor
+
+
 # TODO: Decodificar e imprimir los datos recibidos
 
 # TODO: Cerrar la conexión con el servidor
