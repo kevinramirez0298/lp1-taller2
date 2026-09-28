@@ -46,10 +46,15 @@ def handle_client(client_socket, client_name):
             broadcast(message, client_socket)
 
         except ConnectionResetError:
-            # Manejar desconexión inesperada del cliente
-            clients.remove(client_socket)
-            client_socket.close()
             break
+            # Manejar desconexión inesperada del cliente
+
+        # 4. eliminar cliente de la lista.    
+        if client_socket in clients:
+            clients.remove(client_socket)
+            
+        client_socket.close()
+            
 
 def broadcast(message, sender_socket):
     """
