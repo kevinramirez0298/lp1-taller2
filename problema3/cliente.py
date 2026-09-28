@@ -14,9 +14,24 @@ def receive_messages():
     """
     while True:
         # TODO: Recibir mensajes del servidor (hasta 1024 bytes) y decodificarlos
+        # 1. recibir mensajes del servidor
+        try:
+            data = client_socket.recv(1024)
 
-        # Imprimir el mensaje recibido
-        print(message)
+            # si no llegan datos, el servidor se desconecto
+            if not data:
+                break
+
+            # descodificar el mensaje
+            message = data.decode()    
+        
+            # Imprimir el mensaje recibido
+            print(message)
+
+        except ConnectionResetError:
+            print("conexion con el servidor cerrada.")
+            break
+
 
 # Solicitar nombre de usuario al cliente
 client_name = input("Cuál es tu nombre? ")
