@@ -38,7 +38,7 @@ cliente.sendall(message.encode())
 
 # TODO: Recibir datos del servidor (hasta 1024 bytes)
 
-# Recibir datos del servidor (hasta 1024 bytes)
+# 5.Recibir datos del servidor (hasta 1024 bytes)
 data = cliente.recv(1024)
 
 # Decodificar e imprimir los datos recibidos
@@ -46,3 +46,5 @@ print("Mensaje recibido: ", data.decode())
 
 # TODO: Cerrar la conexión con el servidor
 
+# Cerrar la conexión con el servidor
+cliente.close()
