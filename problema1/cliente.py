@@ -50,8 +50,11 @@ print("mensaje enviado:",mensaje)
 # 5. recibir respuesta del servidor
 datos = client_socket.recv(1024) # espera respuesta del servidor
 
-
 # TODO: Decodificar e imprimir los datos recibidos
+
+# 6. se conviete la respuesta en texto.
+respuesta = datos.decode() # decode() convierte esos bytes en texto.
+
 
 # TODO: Cerrar la conexión con el servidor
 
