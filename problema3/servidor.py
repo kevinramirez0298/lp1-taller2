@@ -52,7 +52,7 @@ def handle_client(client_socket, client_name):
         # 4. eliminar cliente de la lista.    
         if client_socket in clients:
             clients.remove(client_socket)
-            
+
         client_socket.close()
             
 
@@ -67,8 +67,12 @@ def broadcast(message, sender_socket):
     for client in clients:
         if client != sender_socket:
             # TODO: Enviar el mensaje codificado a bytes a cada cliente
-
-
+            # 5. Enviar el mensaje codificado a bytes
+            try:
+                client.send(message.encode())
+            except:
+                pass
+                
 # TODO: Crear un socket TCP/IP
 # AF_INET: socket de familia IPv4
 # SOCK_STREAM: socket de tipo TCP (orientado a conexión)
