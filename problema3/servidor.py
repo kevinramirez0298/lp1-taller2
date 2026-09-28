@@ -82,6 +82,9 @@ server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 
 # TODO: Enlazar el socket a la dirección y puerto especificados
 
+# 7. Enlazar el socket a la dirección y puerto
+server_socket.bind((HOST, PORT))
+
 # TODO: Poner el socket en modo escucha
 # El parámetro define el número máximo de conexiones en cola
 
