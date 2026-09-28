@@ -24,7 +24,7 @@ cliente = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 # TODO: Conectar el socket al servidor en la dirección y puerto especificados
 
-# Conectar el socket al servidor
+# 3.Conectar el socket al servidor
 cliente.connect((HOST, PORT))
 
 # Mostrar mensaje que se va a enviar
@@ -32,6 +32,9 @@ print(f"Mensaje '{message}' enviado.")
 
 # TODO: Codificar el mensaje a bytes y enviarlo al servidor
 # sendall() asegura que todos los datos sean enviados
+
+# 4.Codificar el mensaje a bytes y enviarlo al servidor
+cliente.sendall(message.encode())
 
 # TODO: Recibir datos del servidor (hasta 1024 bytes)
 
