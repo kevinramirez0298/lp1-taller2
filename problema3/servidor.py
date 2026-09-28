@@ -123,6 +123,11 @@ while True:
     # TODO: Crear e iniciar un hilo para manejar la comunicación con este cliente
     # target: función que se ejecutará en el hilo
     # args: argumentos que se pasarán a la función
-    client_handler = # ...
+   
+   
+    client_handler = threading.thread(
+        targe=handle_client,
+        args=(client, client_name)
+    )
     client_handler.start()
 
