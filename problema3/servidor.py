@@ -45,7 +45,7 @@ def handle_client(client_socket, client_name):
             # 3. Retransmitir el mensaje a todos los clientes excepto al remitente
             broadcast(message, client_socket)
 
-        except ConnectionResetError:
+        except (ConnectionResetError, OSError):
             break
             # Manejar desconexión inesperada del cliente
 
@@ -124,10 +124,11 @@ while True:
     # target: función que se ejecutará en el hilo
     # args: argumentos que se pasarán a la función
    
-   
-    client_handler = threading.thread(
-        targe=handle_client,
+    # 12. Crear e iniciar un hilo para manejar al cliente
+    client_handler = threading.Thread(
+
+        target=handle_client,
         args=(client, client_name)
     )
     client_handler.start()
-
+     
