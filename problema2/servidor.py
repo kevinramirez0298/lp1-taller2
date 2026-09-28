@@ -50,7 +50,6 @@ while True:
     # 6.Recibir datos del cliente (hasta 1024 bytes)
     data = conn.recv(1024)
 
-
     # Si no se reciben datos, salir del bucle
     if not data:
         break
@@ -60,5 +59,8 @@ while True:
     
     # TODO: Enviar los mismos datos de vuelta al cliente (echo)
     
+    # 7.Enviar los mismos datos de vuelta al cliente (echo)
+    conn.sendall(data)
+
     # TODO: Cerrar la conexión con el cliente actual
 
