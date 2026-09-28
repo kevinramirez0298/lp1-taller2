@@ -33,6 +33,10 @@ server_socket.bind((HOST, PORT)) # bind() conecta el socket del servidor con: HO
 # TODO: Poner el socket en modo escucha
 # El parámetro define el número máximo de conexiones en cola
 
+# 4.poner al servidor a escuchar
+server_socket.listen(1) # listen()hace que el servidor quede esperando la conexion de los clientes.
+
+# mostrar mensaje si esta funcionando.
 print("Servidor a la espera de conexiones ...")
 
 # TODO: Aceptar una conexión entrante
