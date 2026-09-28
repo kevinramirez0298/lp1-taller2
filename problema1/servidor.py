@@ -52,6 +52,12 @@ print(f"Conexión realizada por {addr}")
 
 # TODO: Recibir datos del cliente (hasta 1024 bytes)
  
+ # 6. recibir el mensaje del cliente
+ datos = conn.recv(1024)
+
+ # decode() convierte los bytes nuevamente en texto.
+ mensaje = datos.decode()
+
 # TODO: Enviar respuesta al cliente (convertida a bytes)
 # sendall() asegura que todos los datos sean enviados
 
