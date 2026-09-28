@@ -44,6 +44,10 @@ print("Servidor a la espera de conexiones ...")
 # conn: nuevo socket para comunicarse con el cliente
 # addr: dirección y puerto del cliente
 
+# 5. aceptar la conexion del cliente.
+conn, addr = server_socket.accept() # Es el nuevo socket que utilizaremos para comunicarnos con ese cliente.
+
+# se muestra quien se conecto
 print(f"Conexión realizada por {addr}")
 
 # TODO: Recibir datos del cliente (hasta 1024 bytes)
