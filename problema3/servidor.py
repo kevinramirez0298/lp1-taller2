@@ -88,6 +88,9 @@ server_socket.bind((HOST, PORT))
 # TODO: Poner el socket en modo escucha
 # El parámetro define el número máximo de conexiones en cola
 
+# 8. Poner el socket en modo escucha
+server_socket.listen(5)
+
 print("Servidor a la espera de conexiones ...")
 
 # Bucle principal para aceptar conexiones entrantes
