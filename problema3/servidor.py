@@ -106,6 +106,10 @@ while True:
     
     # TODO: Recibir el nombre del cliente (hasta 1024 bytes) y decodificarlo
     
+    # 10. Recibir el nombre del cliente
+    client_name = client.recv(1024).decode()
+
+
     # TODO: Agregar el socket del cliente a la lista de clientes conectados
     
     # Enviar mensaje de confirmación de conexión al cliente
