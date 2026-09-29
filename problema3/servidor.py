@@ -77,6 +77,7 @@ def broadcast(message, sender_socket):
 # AF_INET: socket de familia IPv4
 # SOCK_STREAM: socket de tipo TCP (orientado a conexión)
 
+#se crea socket de tcp ip
 server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 # 6. Permitir reutilizar el puerto rápidamente
