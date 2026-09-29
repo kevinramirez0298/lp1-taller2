@@ -10,6 +10,10 @@ import socket
 
 # TODO: Definir la dirección y puerto del servidor HTTP
 
+# 1. Definir la dirección y puerto del servidor HTTP
+HOST = "localhost"
+PUERTO = 8000
+
 class MyRequestHandler(http.server.SimpleHTTPRequestHandler):
     """
     Manejador personalizado de peticiones HTTP.
