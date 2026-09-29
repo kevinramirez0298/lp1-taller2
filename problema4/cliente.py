@@ -15,6 +15,9 @@ PUERTO = 8000
 # TODO: Crear una conexión HTTP con el servidor
 # HTTPConnection permite establecer conexiones HTTP con servidores
 
+# Crear una conexión HTTP con el servidor
+conexion = http.client.HTTPConnection(HOST, PUERTO)
+
 # TODO: Realizar una petición GET al path raíz ('/')
 # request() envía la petición HTTP al servidor
 # Primer parámetro: método HTTP (GET, POST, etc.)
