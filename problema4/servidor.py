@@ -37,7 +37,18 @@ class MyRequestHandler(http.server.SimpleHTTPRequestHandler):
 # - (HOST, PORT): Dirección y puerto donde escuchar
 # - MyRequestHandler: Clase que manejará las peticiones HTTP
 
+# Crear una instancia de servidor HTTP
+servidor = http.server.HTTPServer(
+    (HOST, PUERTO),
+    MyRequestHandler
+)
+
 # TODO: Iniciar el servidor y ponerlo en ejecución continua
 # serve_forever() maneja peticiones indefinidamente hasta una interrupción
 # (normalmente con Ctrl+C en la terminal)
 
+# 3. Iniciar el servidor y ponerlo en ejecución continua
+print(f"Servidor HTTP iniciado en http://{HOST}:{PUERTO}")
+print("Presiona Ctrl+C para detener el servidor.")
+
+servidor.serve_forever()
