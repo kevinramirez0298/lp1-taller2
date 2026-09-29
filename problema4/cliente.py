@@ -46,3 +46,5 @@ print(contenido.decode("utf-8"))
 
 # TODO: Cerrar la conexión con el servidor
 
+# 7. Cerrar la conexión con el servidor
+conexion.close()
