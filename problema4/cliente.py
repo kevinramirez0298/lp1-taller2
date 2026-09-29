@@ -29,6 +29,9 @@ conexion.request("GET", "/")
 # TODO: Obtener la respuesta del servidor
 # getresponse() devuelve un objeto HTTPResponse con los datos de la respuesta
 
+# 4. Obtener la respuesta del servidor
+respuesta = conexion.getresponse()
+
 # TODO: Leer el contenido de la respuesta
 # read() devuelve el cuerpo de la respuesta en bytes
 
