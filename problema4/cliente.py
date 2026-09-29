@@ -8,20 +8,23 @@ import http.client
 
 # TODO: Definir la dirección y puerto del servidor HTTP
 
-# Definir la dirección y puerto del servidor HTTP
+# 1. Definir la dirección y puerto del servidor HTTP
 HOST = "localhost"
 PUERTO = 8000
 
 # TODO: Crear una conexión HTTP con el servidor
 # HTTPConnection permite establecer conexiones HTTP con servidores
 
-# Crear una conexión HTTP con el servidor
+# 2. Crear una conexión HTTP con el servidor
 conexion = http.client.HTTPConnection(HOST, PUERTO)
 
 # TODO: Realizar una petición GET al path raíz ('/')
 # request() envía la petición HTTP al servidor
 # Primer parámetro: método HTTP (GET, POST, etc.)
 # Segundo parámetro: path del recurso solicitado
+
+# 3. Realizar una petición GET al path raíz ('/')
+conexion.request("GET", "/")
 
 # TODO: Obtener la respuesta del servidor
 # getresponse() devuelve un objeto HTTPResponse con los datos de la respuesta
