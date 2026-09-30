@@ -41,7 +41,7 @@ def nombre_seguro(nombre):
 
 
 # 7. FUNCIÓN: enviar_linea
-def enviar_linea(conn, linea):
+def enviar_linea(conn, mensaje):
     # Convertimos el mensaje de texto a bytes utilizando UTF-8.
     conn.sendall( 
         (mensaje + "\n").encode("utf-8")
@@ -57,4 +57,15 @@ def recibir_linea(conn):
         datos += parte  # Agregamos el byte recibido a los datos
     return datos.decode("utf-8").strip()  # Devolvemos la línea recibida, eliminando espacios en blanco
 
-#
+# 9. FUNCIÓN: manejar_cliente
+def manejar_cliente(conn):
+    # try permite controlar posibles errores.
+    try:
+        comando = recibir_linea(conn)  # Primero recibimos el comando enviado por el cliente.
+
+        if comando is None:
+            return  # Si no se recibió ningún comando, salimos de la función
+
+        partes = comando.split(" ", 1)  # Dividimos el comando en partes
+
+        accion = partes[0].upper() # La primera parte es la acción (UPLOAD o DOWNLOAD)
