@@ -69,3 +69,20 @@ def manejar_cliente(conn):
         partes = comando.split(" ", 1)  # Dividimos el comando en partes
 
         accion = partes[0].upper() # La primera parte es la acción (UPLOAD o DOWNLOAD)
+
+
+        # 10. COMANDO LIST
+        if accion == "LIST":
+            archivos = os.listdir(CARPETA_ARCHIVOS)  # Listamos los archivos en la carpeta
+            archivos = [
+                archivo
+                for archivo in archivos
+                if os.path.isfile(
+                    os.path.join(
+                        CARPETA_ARCHIVOS,
+                        archivo
+                    )
+                )
+            ]
+    
+
