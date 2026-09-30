@@ -10,8 +10,14 @@ import hashlib # nos permite generar un hash de un archivo para verificar que no
 
 
 # 2. CONFIGURACIÓN DEL SERVIDOR
-
 HOST = 'localhost'  # Dirección IP del servidor servira con nuestrocomputador.
 PORT = 5001  # Puerto donde el servidor escucha las conexiones
 CARPETA_ARCHIVOS = 'archivos'  # Carpeta donde se almacenarán los archivos recibidos
 BUFFER_SIZE = 4096  # Tamaño del buffer para la transferencia de datos
+
+
+# 3. FUNCIÓN: checksum_archivo
+def checksum_archivo(ruta):
+    sha256 = hashlib.sha256()  # Creamos un objeto hash SHA-256
+    with open(ruta, 'rb') as archivo:  # Abrimos el archivo en modo binario
+        
