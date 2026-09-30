@@ -20,4 +20,9 @@ BUFFER_SIZE = 4096  # Tamaño del buffer para la transferencia de datos
 def checksum_archivo(ruta):
     sha256 = hashlib.sha256()  # Creamos un objeto hash SHA-256
     with open(ruta, 'rb') as archivo:  # Abrimos el archivo en modo binario
-        
+        # 4. repetimos hasta llegar al final del archivo
+        while True: 
+            datos = archivo.read(BUFFER_SIZE)  # Leemos solo 4096 bytes.
+            if not datos:  # Si no hay más datos, salimos del bucle
+                break
+            sha256.update(datos)  # Actualizamos el hash con los datos leídos
