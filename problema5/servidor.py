@@ -47,4 +47,14 @@ def enviar_linea(conn, linea):
         (mensaje + "\n").encode("utf-8")
     )
 
+# 8. FUNCIÓN: recibir_linea
+def recibir_linea(conn):
+    datos = b"" 
+    while b"\n" not in datos:  # Leemos hasta encontrar un salto de línea
+        parte = conn.recv(1)  # Recibimos un byte a la vez
+        if not parte:  # Si no hay más datos, salimos del bucle
+            return None  # Retornamos None si no se recibió ningún dato
+        datos += parte  # Agregamos el byte recibido a los datos
+    return datos.decode("utf-8").strip()  # Devolvemos la línea recibida, eliminando espacios en blanco
+
 #
