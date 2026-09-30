@@ -92,5 +92,11 @@ def manejar_cliente(conn):
             for archivo in archivos:
                 enviar_linea(conn, archivo)
 
+            # 12. "FIN" indica al cliente que ya no quedan archivos por recibir
+            enviar_linea(
+                conn,
+                "FIN"
+            )
 
+          # 13.  
 
