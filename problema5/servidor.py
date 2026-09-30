@@ -38,3 +38,13 @@ def nombre_seguro(nombre):
         return None  # Retornamos None si el nombre es inválido
 
     return nombre  # Retornamos el nombre seguro del archivo
+
+
+# 7. FUNCIÓN: enviar_linea
+def enviar_linea(conn, linea):
+    # Convertimos el mensaje de texto a bytes utilizando UTF-8.
+    conn.sendall( 
+        (mensaje + "\n").encode("utf-8")
+    )
+
+#
