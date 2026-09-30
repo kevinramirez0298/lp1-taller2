@@ -30,3 +30,11 @@ def checksum_archivo(ruta):
     # 5. Devolvemos el hash en formato hexadecimal
     return sha256.hexdigest()  
 
+# 6. FUNCIÓN: nombre_seguro
+def nombre_seguro(nombre):
+    nombre = os.path.basename(nombre)  # Obtenemos solo el nombre del archivo, sin la ruta
+    if nombre in ("",".", ".."):  # Verificamos si el nombre es vacío o inválido
+    
+        return None  # Retornamos None si el nombre es inválido
+
+    return nombre  # Retornamos el nombre seguro del archivo
