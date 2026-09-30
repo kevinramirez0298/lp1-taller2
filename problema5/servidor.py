@@ -25,4 +25,8 @@ def checksum_archivo(ruta):
             datos = archivo.read(BUFFER_SIZE)  # Leemos solo 4096 bytes.
             if not datos:  # Si no hay más datos, salimos del bucle
                 break
+
             sha256.update(datos)  # Actualizamos el hash con los datos leídos
+    # 5. Devolvemos el hash en formato hexadecimal
+    return sha256.hexdigest()  
+
