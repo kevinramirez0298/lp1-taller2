@@ -84,5 +84,13 @@ def manejar_cliente(conn):
                     )
                 )
             ]
-    
+
+            # 11.avisamos al cliente que la operacion fue correcta.
+            enviar_linea(conn, "OK")
+
+            # enviamos la lista de archivos al cliente, uno por línea
+            for archivo in archivos:
+                enviar_linea(conn, archivo)
+
+
 
