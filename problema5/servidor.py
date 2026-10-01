@@ -96,35 +96,7 @@ def manejar_cliente(conn):
                 conn,
                 "FIN"
             )
-
-        # 13. COMANDO LIST
-        if accion == "LIST":
-            archivos = os.listdir(CARPETA_ARCHIVOS)  # Listamos los archivos en la carpeta
-            archivos = [
-                archivo
-                for archivo in archivos
-                if os.path.isfile(
-                    os.path.join(
-                        CARPETA_ARCHIVOS,
-                        archivo
-                    )
-                )
-            ]
-
-            # 14.avisamos al cliente que la operacion fue correcta.
-            enviar_linea(conn, "OK")
-
-            # enviamos la lista de archivos al cliente, uno por línea
-            for archivo in archivos:
-                enviar_linea(conn, archivo)
-
-            # 15. "FIN" indica al cliente que ya no quedan archivos por recibir
-            enviar_linea(
-                conn,
-                "FIN"
-            )
-
-
+    
         # 16. COMANDO UPLOAD 
         elif accion == "UPLOAD":
             if len(partes) != 2:
