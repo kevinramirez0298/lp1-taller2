@@ -270,6 +270,11 @@ def manejar_cliente(conn):
             socket.SOL_SOCKET,
             socket.SO_REUSEADDR,
             1)
+
+        # 30. asociar servidor con HOST Y PORT.
+        servidor.bind(
+            (HOST, PORT))
+
         
 
        
