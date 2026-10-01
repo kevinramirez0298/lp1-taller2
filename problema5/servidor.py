@@ -189,4 +189,51 @@ def manejar_cliente(conn):
             enviar_linea(conn, checksum)
 
 
-            
+        # 23. COMANDO DOWNLOAD
+        elif accion == "DOWNLOAD":
+            if len(partes) != 2:
+                enviar_linea(conn, "ERROR: No se proporcionó el nombre del archivo"
+                )
+                return
+
+            # 23.1 comprobamos el nombre del archivo recibido para evitar problemas de seguridad.
+            nombre = nombre_seguro(partes[1])  # Obtenemos un nombre seguro para el archivo
+            if nombre is None:
+                enviar_linea(conn, "ERROR: Nombre de archivo inválido"
+                )
+                return
+
+            # 23.2 construimos la ruta del archivo a enviar
+            ruta = os.path.join(
+                CARPETA_ARCHIVOS, nombre
+            )
+
+            # 23.3 verificamos que el archivo exista
+            if not os.path.isfile(ruta):
+                enviar_linea(conn, "ERROR: Archivo no encontrado"
+                )
+                return
+
+            # 23.4 obtenemos el tamaño del archivo
+            tamaño = os.path.getsize(ruta)
+
+            # 23.5 calculamos su checksum.
+            checksum = checksum_archivo(ruta)
+
+            # 23.6  enviamos al cliente que estamos listos para enviar el archivo
+            enviar_linea(conn, "OK")
+
+            # 23.7  enviamos el tamaño del archivo al cliente
+            enviar_linea(conn, str(tamaño))
+
+            # 23.8  enviamos el checksum del archivo al cliente
+            enviar_linea(conn, checksum)
+
+            # 23.9  Abrimos el archivo en modo binario para leer los datos a enviar
+            with open(ruta, 'rb') as archivo:
+                while True:
+                    datos = archivo.read(BUFFER_SIZE)  # Leemos un bloque de datos
+                    if not datos:  # Si no hay más datos, salimos del bucle
+                        break
+
+                    conn.sendall(datos)  # Enviamos los datos al cliente    
