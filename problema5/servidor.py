@@ -181,6 +181,12 @@ def manejar_cliente(conn):
                     archivo.write(datos)  # Escribimos los datos en el archivo
                     bytes_recibidos += len(datos)  # Actualizamos el contador de bytes recibidos
 
-                    
-                                
 
+            # 22. Calculamos el checksum del archivo recibido                
+            checksum = checksum_archivo(ruta)
+
+            # Enviamos el checksum al cliente
+            enviar_linea(conn, checksum)
+
+
+            
