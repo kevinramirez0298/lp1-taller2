@@ -249,3 +249,15 @@ def manejar_cliente(conn):
         enviar_linea(conn, f"ERROR: {str(e)}"
         )
 
+    # 26. CERRAMOS LA CONEXIÓN
+    finally:
+        conn.close()  # Cerramos la conexión con el cliente
+
+
+    # 27. FUNCIÓN: principal -main-
+    def main():
+        # 27.1 Creamos la carpeta de archivos si no existe
+        os.makedirs(
+            CARPETA_ARCHIVOS, exist_ok=True)
+
+       
