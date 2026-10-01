@@ -46,3 +46,12 @@ def recibir_linea(conn):
             return None  # Si no hay más datos, devolver None
         datos += parte  # Agregar el byte recibido a los datos
     return datos.decode("utf-8").rstrip()  # Decodificar los datos a cadena y eliminar el salto de línea        
+
+
+# 7. funcion conectar
+def conectar():
+
+   conn = socket.socket(socket.AF_INET, socket.SOCK_STREAM)  # Crear un socket TCP
+   conn.connect((HOST, PORT))  # Conectar al servidor
+   return conn  # Devolver la conexión establecida
+
