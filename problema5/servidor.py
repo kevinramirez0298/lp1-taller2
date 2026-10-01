@@ -275,6 +275,17 @@ def manejar_cliente(conn):
         servidor.bind(
             (HOST, PORT))
 
+        # 30.1 poner el servidor a escuchar
+        servidor.listen(5)  # Escuchamos hasta 5 conexiones entrantes
+
+        # 30.2 mensajes informativos
+        print(
+            f"Servidor escuchando en {HOST}:{PORT}")
+
+        print(
+            f"Carpeta de archivos: {CARPETA_ARCHIVOS}")
+
         
+
 
        
