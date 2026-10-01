@@ -146,4 +146,12 @@ def manejar_cliente(conn):
                 )
                 return
 
-                
+
+                # 18. Avisamos al cliente que estamos listos para recibir el archivo
+            enviar_linea(conn, "OK")
+
+            # el cliente nos envia ahora el tamaño del archivo en bytes.
+            tamaño_linea = recibir_linea(conn)
+            if tamaño_linea is None:
+                return
+
