@@ -23,3 +23,9 @@ def checksum_archivo(ruta):
             sha256.update(datos)  # Actualizar el hash con los datos leídos
     return sha256.hexdigest()  # Devolver el hash en formato hexadecimal
 
+# 4. funcion nombre_seguro
+def nombre_seguro(nombre):
+    # Reemplazar caracteres no permitidos en nombres de archivo
+    nombre = os.path.basename(nombre)
+    if nombre in ("", ".", ". ."):
+        return nombre
