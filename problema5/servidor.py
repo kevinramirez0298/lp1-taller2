@@ -225,8 +225,8 @@ def manejar_cliente(conn):
         conn.close()  # Cerramos la conexión con el cliente
 
 
-    # 27. FUNCIÓN: principal -main-
-    def main():
+# 27. FUNCIÓN: principal -main-
+def main():
         # 27.1 Creamos la carpeta de archivos si no existe
         os.makedirs(
             CARPETA_ARCHIVOS, exist_ok=True)
@@ -265,7 +265,7 @@ def manejar_cliente(conn):
             manejar_cliente(conn)  # Manejamos la conexión con el cliente
             
             
-    # 32. inicio del programa
-    if __name__ == "__main__":
-        main()  # Llamamos a la función principal
+# 32. inicio del programa
+if __name__ == "__main__":
+    main()  # Llamamos a la función principal
     
