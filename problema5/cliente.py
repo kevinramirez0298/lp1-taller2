@@ -11,4 +11,15 @@ PORT = 5001         # Puerto del servidor
 BUFFER_SIZE =  4096  # Tamaño del buffer para recibir datos
 
 
+# 3. funcion checksum_archivo
+def checksum_archivo(ruta):
+
+    sha256 = hashlib.sha256()  # Crear un objeto SHA-256
+    with open(ruta, "rb") as archivo:
+        while True:
+            datos = archivo.read(BUFFER_SIZE)  # Leer el archivo en bloques
+            if not datos:
+                break
+            sha256.update(datos)  # Actualizar el hash con los datos leídos
+    return sha256.hexdigest()  # Devolver el hash en formato hexadecimal
 
