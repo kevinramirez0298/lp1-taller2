@@ -29,3 +29,10 @@ def nombre_seguro(nombre):
     nombre = os.path.basename(nombre)
     if nombre in ("", ".", ". ."):
         return nombre
+
+# 5. funcion enviar linea
+def enviar_linea(conn, mensaje):
+
+    # Enviar una línea de texto al servidor
+    conn.sendall(mensaje + "\n".encode("utf-8"))  # Codificar el mensaje a bytes y enviarlo
+    
