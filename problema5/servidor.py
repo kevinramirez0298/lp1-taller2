@@ -293,7 +293,7 @@ def manejar_cliente(conn):
             manejar_cliente(conn)  # Manejamos la conexión con el cliente
             
             
-# 32. inicio del programa
-if __name__ == "__main__":
-    main()  # Llamamos a la función principal
+    # 32. inicio del programa
+    if __name__ == "__main__":
+        main()  # Llamamos a la función principal
     
