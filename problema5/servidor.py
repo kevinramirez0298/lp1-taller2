@@ -173,5 +173,14 @@ def manejar_cliente(conn):
                         BUFFER_SIZE, tamaño - bytes_recibidos)  # Calculamos cuántos bytes leer
         
 
-            
+                    # 21. Recibimos los datos por TCP.
+                    datos = conn.recv(cantidad)
+                    if not datos:  # Si no hay más datos, salimos del bucle
+                        break
+
+                    archivo.write(datos)  # Escribimos los datos en el archivo
+                    bytes_recibidos += len(datos)  # Actualizamos el contador de bytes recibidos
+
+                    
+                                
 
