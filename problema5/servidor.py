@@ -244,4 +244,8 @@ def manejar_cliente(conn):
             enviar_linea(conn, "ERROR: Comando desconocido"
             )
 
-            
+    # 25. CONTROL DE ERRORES
+    except Exception as e:
+        enviar_linea(conn, f"ERROR: {str(e)}"
+        )
+
