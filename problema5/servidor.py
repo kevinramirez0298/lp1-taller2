@@ -126,3 +126,24 @@ def manejar_cliente(conn):
             )
 
 
+        # 16. COMANDO UPLOAD 
+        elif accion == "UPLOAD":
+            if len(partes) != 2:
+                enviar_linea(conn, "ERROR: No se proporcionó el nombre del archivo"
+                )
+                return
+            # comprobamos el nombre del archivo recibido para evitar problemas de seguridad.
+            nombre = nombre_seguro(partes[1])  # Obtenemos un nombre seguro para el archivo
+            if nombre is None:
+                enviar_linea(conn, "ERROR: Nombre de archivo inválido"
+                )
+                return
+
+            # 17. Comprobamos que el nombre sea seguro
+            nombre = nombre_seguro(partes[1])  # Obtenemos un nombre seguro para el archivo
+            if nombre is None:
+                enviar_linea(conn, "ERROR: Nombre de archivo inválido"
+                )
+                return
+
+                
