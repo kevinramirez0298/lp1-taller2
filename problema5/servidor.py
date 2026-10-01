@@ -155,3 +155,16 @@ def manejar_cliente(conn):
             if tamaño_linea is None:
                 return
 
+            # 19. Convertimos el tamaño del archivo a un entero
+            tamaño = int(tamaño_linea)
+
+            # contruimos la ruta donde se guardaremos el archivo.
+            ruta = os.path.join(
+                CARPETA_ARCHIVOS, nombre
+                )
+
+                # iniciamos el contador de bytes recibidos.
+            bytes_recibidos = 0
+
+            
+
