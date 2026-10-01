@@ -237,3 +237,11 @@ def manejar_cliente(conn):
                         break
 
                     conn.sendall(datos)  # Enviamos los datos al cliente    
+
+
+        # 24. COMANDO DESCONOCIDO
+        else:
+            enviar_linea(conn, "ERROR: Comando desconocido"
+            )
+
+            
