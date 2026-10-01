@@ -166,5 +166,12 @@ def manejar_cliente(conn):
                 # iniciamos el contador de bytes recibidos.
             bytes_recibidos = 0
 
+            # 20. Abrimos el archivo en modo binario para escribir los datos recibidos
+            with open(ruta, 'wb') as archivo:
+                while bytes_recibidos < tamaño:  # Mientras no hayamos recibido todos los bytes
+                    cantidad = min(
+                        BUFFER_SIZE, tamaño - bytes_recibidos)  # Calculamos cuántos bytes leer
+        
+
             
 
