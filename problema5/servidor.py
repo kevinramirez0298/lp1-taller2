@@ -1,4 +1,3 @@
-cat > servidor.py <<'PY'
 #!/usr/bin/env python3
 
 # PROBLEMA 5: TRANSFERENCIA DE ARCHIVOS
@@ -286,6 +285,15 @@ def manejar_cliente(conn):
             f"Carpeta de archivos: {CARPETA_ARCHIVOS}")
 
         
-
-
-       
+        # 31. esperar clientes.
+        while True:
+            conn, addr = servidor.accept()  # Aceptamos una conexión entrante
+            print(
+                f"Cliente conectado desde {addr}")  # Mostramos la dirección del cliente
+            manejar_cliente(conn)  # Manejamos la conexión con el cliente
+            
+            
+# 32. inicio del programa
+if __name__ == "__main__":
+    main()  # Llamamos a la función principal
+    
