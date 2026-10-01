@@ -35,4 +35,14 @@ def enviar_linea(conn, mensaje):
 
     # Enviar una línea de texto al servidor
     conn.sendall(mensaje + "\n".encode("utf-8"))  # Codificar el mensaje a bytes y enviarlo
-    
+
+# 6. funcion recibir linea
+def recibir_linea(conn): 
+    # recibe datos hasta encontrar un salto de linea
+    datos = b""
+    while b"\n" not in datos:
+        parte = conn.recv(1)  # Recibir un byte a la vez
+        if not parte:
+            return None  # Si no hay más datos, devolver None
+        datos += parte  # Agregar el byte recibido a los datos
+    return datos.decode("utf-8").rstrip()  # Decodificar los datos a cadena y eliminar el salto de línea        
