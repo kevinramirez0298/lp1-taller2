@@ -260,4 +260,16 @@ def manejar_cliente(conn):
         os.makedirs(
             CARPETA_ARCHIVOS, exist_ok=True)
 
+        # 28 Creamos un socket 
+        servidor = socket.socket(
+            socket.AF_INET,
+            socket.SOCK_STREAM)
+
+        # 29. reutilizar el puerto
+        servidor.setsockopt(
+            socket.SOL_SOCKET,
+            socket.SO_REUSEADDR,
+            1)
+        
+
        
