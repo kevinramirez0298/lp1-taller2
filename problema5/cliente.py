@@ -1,4 +1,4 @@
-#1/usr/bin/env/ python3
+#1/usr/bin/env python3
 
 # 1. IMPORTAMOS LAS LIBRERIAS.
 import socket 
@@ -9,7 +9,7 @@ import hashlib
 HOST = "localhost"  # IP del servidor
 PORT = 5001         # Puerto del servidor
 BUFFER_SIZE =  4096  # Tamaño del buffer para recibir datos
-
+CARPETA_CLIENTE = "archivos_cliente"
 
 # 3. funcion checksum_archivo
 def checksum_archivo(ruta):
@@ -28,13 +28,13 @@ def nombre_seguro(nombre):
     # Reemplazar caracteres no permitidos en nombres de archivo
     nombre = os.path.basename(nombre)
     if nombre in ("", ".", ". ."):
-        return nombre
+        return None  # Devolver None si el nombre no es válido
 
 # 5. funcion enviar linea
 def enviar_linea(conn, mensaje):
 
     # Enviar una línea de texto al servidor
-    conn.sendall(mensaje + "\n".encode("utf-8"))  # Codificar el mensaje a bytes y enviarlo
+    conn.sendall((mensaje + "\n").encode("utf-8"))  # Codificar el mensaje a bytes y enviarlo
 
 # 6. funcion recibir linea
 def recibir_linea(conn): 
@@ -76,7 +76,7 @@ def listar_archivos():
             if archivo is None:
                 break  # Salir del bucle si se recibe END
 
-            if archivo == "END":
+            if archivo == "FIN":
                 break  # Salir del bucle si se recibe END   
 
             print("-", archivo)  # Mostrar el nombre del archivo
@@ -93,6 +93,17 @@ def subir_archivo(ruta):
     if not os.path.isfile(ruta):
         print("El archivo no existe:", ruta)  # Mostrar mensaje si el archivo no existe
         return
+
+    # 9.1 Obtener nombre seguro
+    nombre = nombre_seguro(
+        os.path.basename(ruta)
+    )
+
+    if nombre is None:
+
+        print("Nombre de archivo no válido.")
+
+        return    
 
     # 10. calculamos el tamaño
     tamaño = os.path.getsize(ruta)  # Obtener el tamaño del archivo
@@ -239,7 +250,7 @@ def main():
 
     while True:
         mostrar_menu()
-        opcion = input("Seleccione una opción: ").strip
+        opcion = input("Seleccione una opción: ").strip()
 
         # 22. LIST
         if opcion == "1":
