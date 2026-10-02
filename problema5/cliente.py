@@ -215,3 +215,14 @@ def descargar_archivo(nombre):
         print("Error al descargar archivo:", str(e))  # Mostrar mensaje de error si ocurre una excepción
     finally:
         conn.close()  # Cerrar la conexión con el servidor
+
+
+# 19. funcion mostrar menu
+def mostrar_menu():
+    print("\n--- Menú del Cliente ---")
+    print("1. Listar archivos disponibles en el servidor")
+    print("2. Subir archivo al servidor")
+    print("3. Descargar archivo del servidor")
+    print("4. Salir")
+    print("------------------------")
+    
