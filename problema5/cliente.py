@@ -225,4 +225,20 @@ def mostrar_menu():
     print("3. Descargar archivo del servidor")
     print("4. Salir")
     print("------------------------")
-    
+
+
+# 20. funcion principal
+def main():
+    os.makedirs(
+        CARPETA_CLIENTE, 
+        exist_ok=True
+    )  # Crear la carpeta cliente si no existe    
+
+    print("cliente de transferencia de archivos")
+    print(f"servidor: {HOST}:{PORT}")
+
+    while True:
+        mostrar_menu()
+        opcion = input("Seleccione una opción: ").strip
+
+        
