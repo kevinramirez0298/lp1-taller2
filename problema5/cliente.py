@@ -55,3 +55,25 @@ def conectar():
    conn.connect((HOST, PORT))  # Conectar al servidor
    return conn  # Devolver la conexión establecida
 
+
+# 8. funcion LIST
+def listar_archivos():
+
+    conn = conectar()  # Establecer conexión con el servidor
+    try: 
+        enviar_linea(conn, "LIST")  # Enviar comando LIST al servidor
+        respuesta = recibir_linea(conn)  # Recibir la respuesta del servidor
+        if respuesta != "OK":
+            print("Error al listar archivos:", respuesta)  # Mostrar mensaje de error si la respuesta no es OK
+            return
+        print("\nArchivos disponibles en el servidor:")  # Mostrar mensaje de archivos disponibles
+        print("-------------------------------")
+
+        cantidad = 0 
+
+        while True:
+            archivo = recibir_linea(conn)  # Recibir el nombre del archivo
+            if archivo == "END":
+                break  # Salir del bucle si se recibe END
+            print(archivo)  # Mostrar el nombre del archivo
+            cantidad += 1  # Incrementar la cantidad de archivos listados  
