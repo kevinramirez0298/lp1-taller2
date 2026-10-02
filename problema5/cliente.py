@@ -94,5 +94,12 @@ def subir_archivo(ruta_archivo):
         print("El archivo no existe:", ruta_archivo)  # Mostrar mensaje si el archivo no existe
         return
 
+    # 10. calculamos el tamaño
+    tamaño = os.path.getsize(ruta)  # Obtener el tamaño del archivo
+    checksum_local = checksum_archivo(ruta)  # Calcular el checksum del archivo
 
-    # 
+    conn = conectar()  # Establecer conexión con el servidor
+    try:
+        enviar_linea(conn, f"UPLOAD {nombre}")
+
+        
