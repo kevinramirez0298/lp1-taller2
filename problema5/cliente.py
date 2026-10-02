@@ -202,8 +202,16 @@ def descargar_archivo(nombre):
         checksum_local = checksum_archivo(
             ruta_destino)  # Calcular el checksum del
 
-    print("Checksum servidor:", checksum_servidor)  # Mostrar el checksum del servidor
-    print("Checksum local:", checksum_local)  # Mostrar el checksum local
+        print("Checksum servidor:", checksum_servidor)  # Mostrar el checksum del servidor
+        print("Checksum local:", checksum_local)  # Mostrar el checksum local
 
+        # 18. verificamos entegridad.
+        if checksum_local == checksum_servidor:
+            print("Archivo descargado correctamente.")
+        else:
+            print("Error: Checksum no coincide. El archivo puede estar corrupto.")  # Mostrar mensaje de error si los checksums no coinciden
 
-    
+    except Exception as e:
+        print("Error al descargar archivo:", str(e))  # Mostrar mensaje de error si ocurre una excepción
+    finally:
+        conn.close()  # Cerrar la conexión con el servidor
