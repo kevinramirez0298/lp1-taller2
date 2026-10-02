@@ -153,4 +153,20 @@ def descargar_archivo(nombre):
         print("Nombre de archivo no válido.")  # Mostrar mensaje si el nombre del archivo no es válido
         return
 
-    #
+    # creamos la carpeta cliente si no existe
+    os.makedirs(CARPETA_CLIENTE, exist_ok=True) 
+
+    # ruta donde se guarda el archivo.
+    ruta_destino = os.path.join
+    (CARPETA_CLIENTE, nombre)  # Construir la ruta de destino del archivo
+
+    conn = conectar()  # Establecer conexión con el servidor
+    try:
+        enviar_linea(
+            conn, 
+            f"DOWNLOAD {nombre}"
+        )
+
+        
+
+
