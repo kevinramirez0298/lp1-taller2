@@ -183,6 +183,19 @@ def descargar_archivo(nombre):
         print(f"\nDescargando archivo: {nombre}")
         print(f"Tamaño: {tamaño} bytes")
 
+        # 16. recibimos el archivo en bloques de 4096 bytes
+        bytes_recibidos = 0  # Inicializar contador de bytes recibidos
+        with open(ruta_destino, "wb") as archivo:
+            while bytes_recibidos < tamaño:
+                cantidad = min(
+                    BUFFER_SIZE, 
+                    tamaño - bytes_recibidos)  # Calcular la cantidad de bytes a recibir
+
+                datos = conn.recv(cantidad)  # Recibir los datos del servidor
+                if not datos:
+                    break
+                archivo.write(datos)  # Escribir los datos en el archivo
+                bytes_recibidos += len(datos)  # Incrementar el contador de bytes recibidos
+        print(f"bytes recibidos: {bytes_recibidos}")  # Mostrar
+
         
-
-
