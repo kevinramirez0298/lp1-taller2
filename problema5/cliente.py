@@ -198,4 +198,12 @@ def descargar_archivo(nombre):
                 bytes_recibidos += len(datos)  # Incrementar el contador de bytes recibidos
         print(f"bytes recibidos: {bytes_recibidos}")  # Mostrar
 
-        
+        # 17. calculamos el checksum del archivo descargado
+        checksum_local = checksum_archivo(
+            ruta_destino)  # Calcular el checksum del
+
+    print("Checksum servidor:", checksum_servidor)  # Mostrar el checksum del servidor
+    print("Checksum local:", checksum_local)  # Mostrar el checksum local
+
+
+    
