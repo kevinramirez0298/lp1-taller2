@@ -86,4 +86,13 @@ def listar_archivos():
     except Exception as e:
         print("Error al listar archivos:", str(e))  # Mostrar mensaje de error si ocurre una excepción
     finally:
-        conn.close()  # Cerrar la conexión con el servidor    
+        conn.close()  # Cerrar la conexión con el servidor
+
+ # 9. funcion upload
+def subir_archivo(ruta_archivo):
+    if not os.path.isfile(ruta):
+        print("El archivo no existe:", ruta_archivo)  # Mostrar mensaje si el archivo no existe
+        return
+
+
+    # 
