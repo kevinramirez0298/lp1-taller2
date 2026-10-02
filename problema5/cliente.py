@@ -266,4 +266,6 @@ def main():
         else:
             print("Opción no válida. Intente nuevamente.")  # Mostrar mensaje si la opción seleccionada no es válida
 
-            
+# 23. inicio del programa
+if __name__ == "__main__":
+    main()  # Llamar a la función principal para iniciar el programa      
