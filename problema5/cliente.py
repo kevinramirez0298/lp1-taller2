@@ -89,9 +89,9 @@ def listar_archivos():
         conn.close()  # Cerrar la conexión con el servidor
 
  # 9. funcion upload
-def subir_archivo(ruta_archivo):
+def subir_archivo(ruta):
     if not os.path.isfile(ruta):
-        print("El archivo no existe:", ruta_archivo)  # Mostrar mensaje si el archivo no existe
+        print("El archivo no existe:", ruta)  # Mostrar mensaje si el archivo no existe
         return
 
     # 10. calculamos el tamaño
@@ -100,12 +100,46 @@ def subir_archivo(ruta_archivo):
 
     conn = conectar()  # Establecer conexión con el servidor
     try:
-        enviar_linea(conn, f"UPLOAD {nombre}")
+        enviar_linea(conn, f"UPLOAD {nombre}"
+        )
 
-    # 11. esperamos que el servidor esta listo
-    respuesta = recibir_linea(conn)  # Recibir la respuesta del servidor
-    if respuesta != "READY":
-        print("Error al subir archivo:", respuesta)  # Mostrar mensaje de error si la respuesta no es READY
-        return
+        # 11. esperamos que el servidor esta listo
+        respuesta = recibir_linea(conn)  # Recibir la respuesta del servidor
+        if respuesta != "READY":
+            print("Error al subir archivo:", respuesta)  # Mostrar mensaje de error si la respuesta no es READY
+            return
 
-    #   
+        # 12. enviamos el tamaño y checksum
+        enviar_linea(conn, str(tamaño)
+        )
+
+        print(f"\nSubiendo archivo: {nombre}") 
+        print(f"Tamaño: {tamaño} bytes")
+
+        # enviamos el arcihivo en bloques de 4096 bytes
+        bytes_enviados = 0  # Inicializar contador de bytes enviados
+        with open(ruta, "rb") as archivo:
+            while bytes_enviados < tamaño:
+                datos = archivo.read(BUFFER_SIZE)  # Leer el archivo en bloques
+                if not datos:
+                    break
+                conn.sendall(datos)  # Enviar los datos al servidor
+                bytes_enviados += len(datos)  # Incrementar el contador de bytes enviados
+        print(f"bytes enviados: {bytes_enviados}/{tamaño}")  # Mostrar el progreso de bytes enviados
+
+        # 13. recibimos checksum calculado por el servidor
+        checksum_servidor = recibir_linea(conn)  # Recibir el checksum calculado
+
+        print("Checksum local:", checksum_local)  # Mostrar el checksum local
+        print("Checksum servidor:", checksum_servidor)  # Mostrar el checksum del servidor
+
+        # comparamos ambos checkum
+        if checksum_local == checksum_servidor:
+            print("Archivo subido correctamente.")
+        else:
+            print("Error: Checksum no coincide. El archivo puede estar corrupto.")  # Mostrar mensaje de error si los checksums no coinciden
+    except Exception as e:
+        print("Error al subir archivo:", str(e))  # Mostrar mensaje de error si ocurre una excepción
+    finally:
+        conn.close()  # Cerrar la conexión con el servidor 
+           
