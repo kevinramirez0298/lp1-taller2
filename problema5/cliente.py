@@ -142,4 +142,15 @@ def subir_archivo(ruta):
         print("Error al subir archivo:", str(e))  # Mostrar mensaje de error si ocurre una excepción
     finally:
         conn.close()  # Cerrar la conexión con el servidor 
+
            
+# 14. funcion download
+def descargar_archivo(nombre):
+
+    # validamos el nombre.
+    nombre = nombre_seguro(nombre)  # Validar el nombre del archivo
+    if nombre is None:
+        print("Nombre de archivo no válido.")  # Mostrar mensaje si el nombre del archivo no es válido
+        return
+
+    #
