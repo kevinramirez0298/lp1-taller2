@@ -232,7 +232,7 @@ def main():
     os.makedirs(
         CARPETA_CLIENTE, 
         exist_ok=True
-    )  # Crear la carpeta cliente si no existe    
+    )  # 21. Crear la carpeta cliente si no existe    
 
     print("cliente de transferencia de archivos")
     print(f"servidor: {HOST}:{PORT}")
@@ -241,4 +241,29 @@ def main():
         mostrar_menu()
         opcion = input("Seleccione una opción: ").strip
 
-        
+        # 22. LIST
+        if opcion == "1":
+            listar_archivos()  # Llamar a la función para listar archivos
+
+        # UPLOAD
+        elif opcion == "2":
+            ruta = input(
+                "Ingrese la ruta del archivo a subir: ").strip()  # Solicitar la ruta del archivo al usuario
+            subir_archivo(ruta)  # Llamar a la función para subir el archivo   
+
+        # DOWNLOAD
+        elif opcion == "3":
+            nombre = input(
+                "Ingrese el nombre del archivo a descargar: ").strip()  # Solicitar el nombre del archivo al usuario
+            descargar_archivo(nombre)  # Llamar a la función para descargar el archivo
+
+
+        # SALIR
+        elif opcion == "4":
+            print("Saliendo del cliente...")
+            break  # Salir del bucle y finalizar el programa
+
+        else:
+            print("Opción no válida. Intente nuevamente.")  # Mostrar mensaje si la opción seleccionada no es válida
+
+            
