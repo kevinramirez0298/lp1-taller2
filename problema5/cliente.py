@@ -102,4 +102,10 @@ def subir_archivo(ruta_archivo):
     try:
         enviar_linea(conn, f"UPLOAD {nombre}")
 
-        
+    # 11. esperamos que el servidor esta listo
+    respuesta = recibir_linea(conn)  # Recibir la respuesta del servidor
+    if respuesta != "READY":
+        print("Error al subir archivo:", respuesta)  # Mostrar mensaje de error si la respuesta no es READY
+        return
+
+    #   
