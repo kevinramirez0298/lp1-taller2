@@ -177,6 +177,12 @@ def descargar_archivo(nombre):
             print("Error al recibir el tamaño del archivo.")  # Mostrar mensaje de error si no se recibe el tamaño del archivo
             return
         tamaño = int(tamaño_linea)  # Convertir la línea recibida a entero
-        #
+        # recibimos el checksum esperando.
+        checksum_servidor = recibir_linea(conn)  # Recibir el checksum del servidor
+
+        print(f"\nDescargando archivo: {nombre}")
+        print(f"Tamaño: {tamaño} bytes")
+
+        
 
 
