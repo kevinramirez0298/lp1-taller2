@@ -167,6 +167,16 @@ def descargar_archivo(nombre):
             f"DOWNLOAD {nombre}"
         )
 
-        
+        # 15. esperamos respuesta del servidor.
+        respuesta = recibir_linea(conn)  # Recibir la respuesta del servidor
+        if respuesta != "OK":
+            print("Error al descargar archivo:", respuesta)  # Mostrar mensaje de error si la respuesta no es OK
+            return
+        tamaño_linea = recibir_linea(conn)  # Recibir la línea con el tamaño del archivo
+        if tamaño_linea is None:
+            print("Error al recibir el tamaño del archivo.")  # Mostrar mensaje de error si no se recibe el tamaño del archivo
+            return
+        tamaño = int(tamaño_linea)  # Convertir la línea recibida a entero
+        #
 
 
