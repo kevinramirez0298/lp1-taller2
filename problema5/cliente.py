@@ -73,7 +73,17 @@ def listar_archivos():
 
         while True:
             archivo = recibir_linea(conn)  # Recibir el nombre del archivo
-            if archivo == "END":
+            if archivo is None:
                 break  # Salir del bucle si se recibe END
-            print(archivo)  # Mostrar el nombre del archivo
-            cantidad += 1  # Incrementar la cantidad de archivos listados  
+
+            if archivo == "END":
+                break  # Salir del bucle si se recibe END   
+
+            print("-", archivo)  # Mostrar el nombre del archivo
+            cantidad += 1  # Incrementar la cantidad de archivos listados
+        if cantidad == 0:
+            print("No hay archivos disponibles en el servidor.")  # Mostrar mensaje si no hay archivos disponibles
+    except Exception as e:
+        print("Error al listar archivos:", str(e))  # Mostrar mensaje de error si ocurre una excepción
+    finally:
+        conn.close()  # Cerrar la conexión con el servidor    
