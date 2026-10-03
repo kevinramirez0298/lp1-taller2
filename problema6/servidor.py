@@ -425,6 +425,48 @@ def procesar_comando(nombre_usuario, socket_cliente, comando):
 
         return True
 
+    # 11.8 COMANDO HELP
+    if comando.upper() == "HELP":
+
+        ayuda = """
+Comandos disponibles:
+
+CREATE sala
+    Crear una sala.
+
+JOIN sala
+    Entrar a una sala.
+
+LEAVE
+    Salir de la sala actual.
+
+LIST
+    Mostrar las salas disponibles.
+
+USERS sala
+    Mostrar usuarios de una sala.
+
+MSG sala mensaje
+    Enviar mensaje a una sala.
+
+PRIVATE usuario mensaje
+    Enviar mensaje privado.
+
+HELP
+    Mostrar esta ayuda.
+
+QUIT
+    Desconectarse.
+"""
+
+        enviar(
+            socket_cliente,
+            ayuda
+        )
+
+        return True
+
+    
 
 
 
