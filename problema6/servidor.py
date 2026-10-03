@@ -284,7 +284,7 @@ def procesar_comando(nombre_usuario, socket_cliente, comando):
 
 
     # 11.4 COMANDO LEAVE
-     if comando.upper() == "LEAVE":
+    if comando.upper() == "LEAVE":
 
         with lock:
 
@@ -318,5 +318,25 @@ def procesar_comando(nombre_usuario, socket_cliente, comando):
         return True
 
 
-        
-         
+
+    # 11.5 COMANDO USERS
+    if comando.upper().startswith("USERS "):
+
+        partes = comando.split(maxsplit=1)
+
+        nombre_sala = partes[1].strip()
+
+        enviar(
+            socket_cliente,
+            listar_usuarios_sala(nombre_sala)
+        )
+
+        return True
+
+    
+
+
+
+
+
+
