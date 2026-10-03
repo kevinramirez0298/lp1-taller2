@@ -105,4 +105,12 @@ def main():
 
         print("\n[CLIENTE] Conexión cerrada")
 
-        
+
+# 4. INICIO
+if __name__ == "__main__":
+
+    main()
+    
+
+
+
