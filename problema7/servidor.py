@@ -271,5 +271,32 @@ def manejar_http(cliente, datos):
     print(f"[HTTP] Servidor destino: {host}:{puerto}")
     print(f"[HTTP] Ruta: {ruta}")
 
+    # 7. CONECTAR CON EL SERVIDOR DESTINO
+    try:
+
+        servidor = socket.create_connection(
+            (host, puerto),
+            timeout=10
+        )
+
+    except Exception as error:
+
+        print("[ERROR] No se pudo conectar al servidor:")
+        print(error)
+
+        respuesta = (
+            "HTTP/1.1 502 Bad Gateway\r\n"
+            "Content-Type: text/plain\r\n"              "Content-Length: 25\r\n"
+            "\r\n"
+            "Error servidor destino"
+        )
+
+        cliente.sendall(respuesta.encode())
+
+        cliente.close()
+        return
+
+    print("[OK] Conectado al servidor destino")
+
 
 
