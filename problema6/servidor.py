@@ -73,7 +73,21 @@ def guardar_salas():
             ensure_ascii=False
             )
 
-        
+# 6. ENVIAR MENSAJE A UN CLIENTE
+def enviar(socket_cliente, mensaje):
+
+    try:
+
+        socket_cliente.sendall(
+            (mensaje + "\n").encode("utf-8")
+        )
+
+    except:
+
+        # Si hay un error al enviar el mensaje, cerramos la conexión.
+        pass
+
+
 
 
 
