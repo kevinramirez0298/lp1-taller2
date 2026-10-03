@@ -372,7 +372,31 @@ def manejar_http(cliente, datos):
         return
 
 
+    # 10. RECIBIR RESPUESTA DEL SERVIDOR
+    print("[HTTP] Esperando respuesta...")
 
+    try:
+
+        while True:
+
+            respuesta = servidor.recv(BUFFER_SIZE)
+
+            # Si no hay más datos,
+            # el servidor terminó la respuesta.
+
+            if not respuesta:
+                break
+
+            # Mandamos la respuesta al cliente.
+
+            cliente.sendall(respuesta)
+
+    except Exception as error:
+
+        print("[ERROR] Recibiendo respuesta:")
+        print(error)
+
+    
 
 
 
