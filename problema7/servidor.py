@@ -396,6 +396,12 @@ def manejar_http(cliente, datos):
         print("[ERROR] Recibiendo respuesta:")
         print(error)
 
+    # 11. CERRAR CONEXIONES
+    servidor.close()
+    cliente.close()
+
+    print("[HTTP] Conexión terminada")
+
     
 
 
