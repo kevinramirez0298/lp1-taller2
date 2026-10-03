@@ -233,5 +233,52 @@ def procesar_comando(nombre_usuario, socket_cliente, comando):
                 )
 
         return True
-    
-        
+
+    # 11.3 COMANDO JOIN
+    if comando.upper().startswith("JOIN "):
+
+        partes = comando.split(maxsplit=1)
+
+        nombre_sala = partes[1].strip()
+
+        with lock:
+
+            # Verificamos si existe.
+            if nombre_sala not in salas:
+
+                enviar(
+                    socket_cliente,
+                    f"La sala '{nombre_sala}' no existe."
+                )
+
+                return True
+
+            # Averiguamos si ya estaba en una sala.
+            sala_anterior = usuarios_sala.get(nombre_usuario)
+
+            # Si estaba en otra sala, lo sacamos.
+            if sala_anterior is not None:
+
+                salas[sala_anterior].discard(nombre_usuario)
+
+            # Agregamos al usuario a la nueva sala.
+            salas[nombre_sala].add(nombre_usuario)
+
+            # Guardamos qué sala está utilizando.
+            usuarios_sala[nombre_usuario] = nombre_sala
+
+            guardar_salas()
+
+        enviar(
+            socket_cliente,
+            f"Has entrado a la sala '{nombre_sala}'."
+        )
+
+        # Avisamos a los usuarios de la sala.
+        enviar_a_sala(
+            nombre_sala,
+            f"[SISTEMA] {nombre_usuario} ha entrado a la sala."
+        )
+
+        return True
+
