@@ -299,4 +299,62 @@ def manejar_http(cliente, datos):
     print("[OK] Conectado al servidor destino")
 
 
+    # 8. MODIFICAR LA PETICIÓN
+    lineas = texto.split("\r\n")
+
+    # Reemplazamos la primera línea.
+
+    lineas[0] = f"{metodo} {ruta} {version}"
+
+    # Buscamos el header Host y agregamos uno propio.
+
+    tiene_proxy_header = False
+
+    nuevas_lineas = []
+
+    for linea in lineas:
+
+        # Evitamos duplicar nuestro header.
+
+        if linea.lower().startswith("proxy-agent:"):
+
+            tiene_proxy_header = True
+
+        nuevas_lineas.append(linea)
+
+    # Agregamos un header para demostrar la modificación de headers.
+
+    if not tiene_proxy_header:
+
+        # Buscamos dónde termina la cabecera.
+
+        try:
+
+            posicion = nuevas_lineas.index("")
+
+            nuevas_lineas.insert(
+                posicion,
+                "Proxy-Agent: Problema7-Proxy"
+            )
+
+        except ValueError:
+
+            nuevas_lineas.append(
+                "Proxy-Agent: Problema7-Proxy"
+            )
+
+    # Volvemos a construir la petición.
+
+    nueva_peticion = "\r\n".join(nuevas_lineas)
+
+    datos_modificados = nueva_peticion.encode(
+        "iso-8859-1"
+    )
+
+
+
+
+
+
+
 
