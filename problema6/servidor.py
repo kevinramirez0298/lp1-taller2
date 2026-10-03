@@ -661,8 +661,12 @@ def main():
     finally:
 
         servidor.close()
-        
-                
+
+# 14. INICIAR EL PROGRAMA
+if __name__ == "__main__":
+
+    main()
+               
 
         
 
