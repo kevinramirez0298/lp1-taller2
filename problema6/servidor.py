@@ -476,5 +476,14 @@ QUIT
 
         return False
 
+    # 11.10 COMANDO DESCONOCIDO
+    enviar(
+        socket_cliente,
+        "Comando no reconocido. Escribe HELP."
+    )
+
+    return True
+
+
 
 
