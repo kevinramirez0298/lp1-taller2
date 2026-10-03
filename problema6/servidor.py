@@ -192,4 +192,15 @@ def procesar_comando(nombre_usuario, socket_cliente, comando):
     if not comando:
 
         return True
+
+    # 11.1 COMANDO LIST
+    if comando.upper() == "LIST":
+
+        enviar(
+            socket_cliente,
+            listar_salas()
+        )
+
+        return True
+    
         
