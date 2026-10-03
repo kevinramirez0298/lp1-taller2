@@ -103,4 +103,6 @@ def main():
 
         cliente.close()
 
+        print("\n[CLIENTE] Conexión cerrada")
 
+        
