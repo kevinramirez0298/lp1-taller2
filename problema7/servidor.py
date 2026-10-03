@@ -496,3 +496,10 @@ def main():
 
         hilo.start()
 
+# 14. INICIO DEL PROGRAMA
+if __name__ == "__main__":
+
+    main()
+
+
+    
