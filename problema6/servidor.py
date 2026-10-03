@@ -158,5 +158,28 @@ def quitar_de_sala(nombre_usuario):
 
         return texto
 
-       
+# 10. MOSTRAR USUARIOS DE UNA SALA      
+def listar_usuarios_sala(nombre_sala):
 
+    with lock:
+
+        # Verificamos si la sala existe.
+        if nombre_sala not in salas:
+
+            return f"La sala '{nombre_sala}' no existe."
+
+        usuarios_lista = salas[nombre_sala]
+
+        if not usuarios_lista:
+
+            return f"La sala '{nombre_sala}' está vacía."
+
+        texto = f"Usuarios en '{nombre_sala}':\n"
+
+        for usuario in usuarios_lista:
+
+            texto += f"- {usuario}\n"
+
+        return texto
+
+    
