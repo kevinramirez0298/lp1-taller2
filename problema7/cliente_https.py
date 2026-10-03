@@ -103,4 +103,47 @@ def main():
         cliente_ssl.sendall(
             peticion_https.encode()
         )
-        
+
+        # 6. RECIBIMOS RESPUESTA HTTPS
+        respuesta_completa = b""
+
+        while True:
+
+            datos = cliente_ssl.recv(4096)
+
+            if not datos:
+                break
+
+            respuesta_completa += datos
+
+        print("\n========== RESPUESTA HTTPS ==========")
+
+        print(
+            respuesta_completa.decode(
+                "utf-8",
+                errors="replace"
+            )
+        )
+
+        print("\n========== FIN ==========")
+
+        # Cerramos la conexión TLS.
+        cliente_ssl.close()
+
+        print("[OK] Conexión HTTPS cerrada")
+
+    except Exception as error:
+
+        print("\n[ERROR]")
+        print(error)
+
+        try:
+            cliente.close()
+        except:
+            pass
+
+# 7. INICIO DEL PROGRAMA
+if __name__ == "__main__":
+
+    main()
+    
