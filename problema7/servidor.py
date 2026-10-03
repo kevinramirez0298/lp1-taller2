@@ -351,7 +351,25 @@ def manejar_http(cliente, datos):
         "iso-8859-1"
     )
 
+    # 9. REENVIAR PETICIÓN AL SERVIDOR
+    print("[HTTP] Reenviando petición...")
 
+    try:
+
+        enviar_todo(
+            servidor,
+            datos_modificados
+        )
+
+    except Exception as error:
+
+        print("[ERROR] Error enviando datos:")
+        print(error)
+
+        servidor.close()
+        cliente.close()
+
+        return
 
 
 
