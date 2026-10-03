@@ -202,5 +202,36 @@ def procesar_comando(nombre_usuario, socket_cliente, comando):
         )
 
         return True
+
+    # 11.2 COMANDO CREATE
+    if comando.upper().startswith("CREATE "):
+
+        partes = comando.split(maxsplit=1)
+
+        nombre_sala = partes[1].strip()
+
+        with lock:
+
+            if nombre_sala in salas:
+
+                enviar(
+                    socket_cliente,
+                    f"La sala '{nombre_sala}' ya existe."
+                )
+
+            else:
+
+                # Creamos la sala.
+                salas[nombre_sala] = set()
+
+                # Guardamos en salas.json.
+                guardar_salas()
+
+                enviar(
+                    socket_cliente,
+                    f"Sala '{nombre_sala}' creada correctamente."
+                )
+
+        return True
     
         
