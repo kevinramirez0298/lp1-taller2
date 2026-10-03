@@ -466,7 +466,15 @@ QUIT
 
         return True
 
-    
+    # 11.9 COMANDO QUIT
+    if comando.upper() == "QUIT":
+
+        enviar(
+            socket_cliente,
+            "Desconectándote..."
+        )
+
+        return False
 
 
 
