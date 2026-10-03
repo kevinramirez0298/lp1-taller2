@@ -282,3 +282,41 @@ def procesar_comando(nombre_usuario, socket_cliente, comando):
 
         return True
 
+
+    # 11.4 COMANDO LEAVE
+     if comando.upper() == "LEAVE":
+
+        with lock:
+
+            sala_actual = usuarios_sala.get(nombre_usuario)
+
+            if sala_actual is None:
+
+                enviar(
+                    socket_cliente,
+                    "No estás dentro de ninguna sala."
+                )
+
+                return True
+
+            salas[sala_actual].discard(nombre_usuario)
+
+            usuarios_sala.pop(nombre_usuario)
+
+            guardar_salas()
+
+        enviar(
+            socket_cliente,
+            f"Has salido de la sala '{sala_actual}'."
+        )
+
+        enviar_a_sala(
+            sala_actual,
+            f"[SISTEMA] {nombre_usuario} ha salido de la sala."
+        )
+
+        return True
+
+
+        
+         
