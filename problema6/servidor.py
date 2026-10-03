@@ -110,7 +110,11 @@ def enviar_a_sala(nombre_sala, mensaje):
                 sockets.append(
                     usuarios[nombre_usuario]
                 )
-                
 
+    # Enviamos el mensaje.
+    for socket_cliente in sockets:
+
+        enviar(socket_cliente, mensaje)
+        
 
 
