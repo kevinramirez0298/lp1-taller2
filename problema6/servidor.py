@@ -28,3 +28,36 @@ lock = threading.Lock()
 
 usuarios_sala = {} # Diccionario que indica en qué sala está cada usuario.
 
+# 4. CARGAR LAS SALAS DESDE EL ARCHIVO
+def cargar_salas():
+
+    global salas
+
+    # Si el archivo no existe, creamos una sala general.
+    if not os.path.exists(ARCHIVO_SALAS):
+
+        salas = {
+            "general": set()
+        }
+
+        guardar_salas()
+        return
+
+    # Abrimos el archivo en modo lectura.
+    with open(ARCHIVO_SALAS, "r", encoding="utf-8") as archivo:
+
+        datos = json.load(archivo)
+
+    # JSON no puede guardar conjuntos (set).
+    # Por eso convertimos las listas nuevamente en sets.
+    salas = {}
+
+    for nombre_sala, usuarios_lista in datos.items():
+
+        salas[nombre_sala] = set(usuarios_lista)
+
+
+
+
+        
+
