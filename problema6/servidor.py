@@ -580,6 +580,27 @@ def atender_cliente(socket_cliente, direccion):
 
     finally:
 
+        # LIMPIEZA CUANDO EL CLIENTE SE DESCONECTA
+        if nombre_usuario is not None:
+
+            quitar_de_sala(nombre_usuario)
+
+            with lock:
+
+                usuarios.pop(
+                    nombre_usuario,
+                    None
+                )
+
+            print(
+                f"[DESCONEXIÓN] {nombre_usuario} salió."
+            )
+
+        socket_cliente.close()
+
+
+        
+
         
 
 
