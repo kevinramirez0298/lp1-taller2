@@ -333,6 +333,50 @@ def procesar_comando(nombre_usuario, socket_cliente, comando):
 
         return True
 
+    # 11.6 COMANDO MSG
+    if comando.upper().startswith("MSG "):
+
+        partes = comando.split(maxsplit=2)
+
+        # Necesitamos:
+        #
+        # MSG
+        # sala
+        # mensaje
+        #
+        if len(partes) < 3:
+
+            enviar(
+                socket_cliente,
+                "Uso correcto: MSG sala mensaje"
+            )
+
+            return True
+
+        nombre_sala = partes[1]
+
+        mensaje = partes[2]
+
+        with lock:
+
+            sala_actual = usuarios_sala.get(nombre_usuario)
+
+        # El usuario debe estar dentro de esa sala.
+        if sala_actual != nombre_sala:
+
+            enviar(
+                socket_cliente,
+                f"No estás dentro de la sala '{nombre_sala}'."
+            )
+
+            return True
+
+        enviar_a_sala(
+            nombre_sala,
+            f"[{nombre_usuario}] {mensaje}"
+        )
+
+        return True
     
 
 
