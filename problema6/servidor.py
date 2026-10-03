@@ -57,7 +57,23 @@ def cargar_salas():
         salas[nombre_sala] = set(usuarios_lista)
 
 
+# 5. GUARDAR LAS SALAS EN EL ARCHIVO
+def guardar_salas():
+    datos = {}
 
+    for nombre_sala, usuarios_set in salas.items():
+
+        datos[nombre_sala] = list(usuarios_set)
+
+    with open(ARCHIVO_SALAS, "w", encoding="utf-8") as archivo:
+        json.dump(
+            datos, 
+            archivo, 
+            indent=4, 
+            ensure_ascii=False
+            )
 
         
+
+
 
