@@ -93,4 +93,74 @@ def tunel_https(cliente, servidor):
             pass
 
 
+# 5. PROCESAR HTTPS - MÉTODO CONNECT
+def manejar_connect(cliente, primera_linea):
+
+    print("\n[HTTPS] Petición CONNECT recibida")
+
+    print("[HTTPS]", primera_linea)
+
+    partes = primera_linea.split()
+
+    if len(partes) < 2:
+
+        cliente.sendall(
+            b"HTTP/1.1 400 Bad Request\r\n\r\n"
+        )
+
+        return
+
+    destino = partes[1]
+    # 5.1 Separamos HOST y PUERTO.
+    
+    if ":" in destino:
+
+        host, puerto = destino.rsplit(":", 1)
+
+        try:
+            puerto = int(puerto)
+
+        except ValueError:
+
+            cliente.sendall(
+                b"HTTP/1.1 400 Bad Request\r\n\r\n"
+            )
+
+            return
+
+    else:
+
+        host = destino
+        puerto = 443
+
+    print(f"[HTTPS] Destino: {host}:{puerto}")
+    # 5.2 Nos conectamos al servidor HTTPS.
+    try:
+
+        servidor = socket.create_connection(
+            (host, puerto),
+            timeout=10
+        )
+
+    except Exception as error:
+
+        print("[ERROR] No se pudo conectar:", error)
+
+        cliente.sendall(
+            b"HTTP/1.1 502 Bad Gateway\r\n\r\n"
+        )
+
+        return
+
+    print("[HTTPS] Conexión establecida")
+
+    respuesta = (
+        "HTTP/1.1 200 Connection Established\r\n"
+        "Proxy-Agent: Problema7-Proxy\r\n"
+        "\r\n"
+    )
+
+    cliente.sendall(respuesta.encode())
+
+    tunel_https(cliente, servidor)
 
