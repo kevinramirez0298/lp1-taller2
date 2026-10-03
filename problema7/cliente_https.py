@@ -49,4 +49,32 @@ def main():
         print(peticion_connect)
 
 
+         # Enviamos CONNECT al proxy.
+        cliente.sendall(
+            peticion_connect.encode()
+        )
+
+        # Recibimos la respuesta del proxy.
+        respuesta = cliente.recv(4096)
+
+        print("========== RESPUESTA PROXY ==========")
+        print(
+            respuesta.decode(
+                "iso-8859-1",
+                errors="replace"
+            )
+        )
+
+
+        # Comprobamos si el proxy creó el túnel.
+        if b"200 Connection Established" not in respuesta:
+
+            print("[ERROR] El proxy no creó el túnel.")
+
+            cliente.close()
+
+            return
+
+        print("[OK] Túnel HTTPS creado")
+
 
