@@ -139,8 +139,8 @@ def quitar_de_sala(nombre_usuario):
         # Guardamos el cambio.
         guardar_salas()
 
- # 9. MOSTRAR LAS SALAS DISPONIBLES
- def listar_salas():
+# 9. MOSTRAR LAS SALAS DISPONIBLES
+def listar_salas():
 
     with lock:
 
@@ -182,4 +182,14 @@ def listar_usuarios_sala(nombre_sala):
 
         return texto
 
-    
+# 11. PROCESAR LOS COMANDOS DEL CLIENTE
+def procesar_comando(nombre_usuario, socket_cliente, comando):
+
+    # Eliminamos espacios al principio y al final.
+    comando = comando.strip()
+
+    # Si el cliente no escribió nada.
+    if not comando:
+
+        return True
+        
