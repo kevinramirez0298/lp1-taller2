@@ -599,7 +599,70 @@ def atender_cliente(socket_cliente, direccion):
         socket_cliente.close()
 
 
+# 13. FUNCIÓN PRINCIPAL DEL SERVIDOR
+def main():
+
+    # Cargamos las salas guardadas.
+    cargar_salas()
+
+    # Creamos el socket TCP.
+    servidor = socket.socket(
+        socket.AF_INET,
+        socket.SOCK_STREAM
+    )
+
+    # Permite reutilizar rápidamente el puerto.
+    servidor.setsockopt(
+        socket.SOL_SOCKET,
+        socket.SO_REUSEADDR,
+        1
+    )
+
+    # Asociamos el socket con HOST y PORT.
+    servidor.bind(
+        (HOST, PORT)
+    )
+
+    # Ponemos el servidor a escuchar.
+    servidor.listen()
+
+    print("=" * 50)
+    print("SERVIDOR DE CHAT CON SALAS")
+    print("=" * 50)
+    print(f"Servidor escuchando en {HOST}:{PORT}")
+    print("Esperando conexiones...")
+    print()
+
+    try:
+
+        while True:
+
+            # Esperamos un nuevo cliente.
+            socket_cliente, direccion = servidor.accept()
+
+            # Creamos un hilo para atenderlo.
+            hilo = threading.Thread(
+                target=atender_cliente,
+                args=(socket_cliente, direccion)
+            )
+
+            # Permitimos que el hilo trabaje independientemente.
+            hilo.daemon = True
+
+            # Iniciamos el hilo.
+            hilo.start()
+
+
+    except KeyboardInterrupt:
+
+        print("\nServidor detenido.")
+
+
+    finally:
+
+        servidor.close()
         
+                
 
         
 
