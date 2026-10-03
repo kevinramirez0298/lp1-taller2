@@ -379,7 +379,51 @@ def procesar_comando(nombre_usuario, socket_cliente, comando):
         return True
     
 
+    # 11.7 COMANDO PRIVATE
+    if comando.upper().startswith("PRIVATE "):
 
+        partes = comando.split(maxsplit=2)
+
+        
+        if len(partes) < 3:
+
+            enviar(
+                socket_cliente,
+                "Uso correcto: PRIVATE usuario mensaje"
+            )
+
+            return True
+
+        destinatario = partes[1]
+
+        mensaje = partes[2]
+
+        with lock:
+
+            if destinatario not in usuarios:
+
+                enviar(
+                    socket_cliente,
+                    f"El usuario '{destinatario}' no está conectado."
+                )
+
+                return True
+
+            socket_destinatario = usuarios[destinatario]
+
+        # Enviamos solamente al destinatario.
+        enviar(
+            socket_destinatario,
+            f"[PRIVADO de {nombre_usuario}] {mensaje}"
+        )
+
+        # Confirmamos al remitente.
+        enviar(
+            socket_cliente,
+            f"[PRIVADO para {destinatario}] {mensaje}"
+        )
+
+        return True
 
 
 
