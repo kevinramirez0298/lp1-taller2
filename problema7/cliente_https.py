@@ -78,3 +78,29 @@ def main():
         print("[OK] Túnel HTTPS creado")
 
 
+        # 4. CREAMOS SSL/TLS
+        contexto = ssl.create_default_context()
+
+        cliente_ssl = contexto.wrap_socket(
+            cliente,
+            server_hostname=DESTINO_HOST
+        )
+
+        print("[OK] Conexión TLS establecida")
+
+
+        # 5. ENVIAMOS PETICIÓN HTTPS
+        peticion_https = (
+            f"GET / HTTP/1.1\r\n"
+            f"Host: {DESTINO_HOST}\r\n"
+            "Connection: close\r\n"
+            "\r\n"
+        )
+
+        print("\n========== PETICIÓN HTTPS ==========")
+        print(peticion_https)
+
+        cliente_ssl.sendall(
+            peticion_https.encode()
+        )
+        
