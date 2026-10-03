@@ -402,7 +402,57 @@ def manejar_http(cliente, datos):
 
     print("[HTTP] Conexión terminada")
 
-    
+# 12. MANEJAR CADA CLIENTE
+def manejar_cliente(cliente, direccion):
+    """
+    Atiende a un cliente conectado al proxy.
+    """
+
+    print("\n========================================")
+    print("[NUEVO CLIENTE]", direccion)
+    print("========================================")
+
+    try:
+
+        datos = cliente.recv(BUFFER_SIZE)
+
+        if not datos:
+
+            cliente.close()
+            return
+
+        texto = datos.decode(
+            "iso-8859-1",
+            errors="replace"
+        )
+
+        primera_linea = texto.split("\r\n")[0]
+
+        print("[PETICIÓN]", primera_linea)
+
+
+        if primera_linea.upper().startswith("CONNECT "):
+
+            manejar_connect(
+                cliente,
+                primera_linea
+            )
+
+            return
+
+        manejar_http(
+            cliente,
+            datos
+        )
+
+    except Exception as error:
+
+        print("[ERROR] Cliente:", error)
+
+        try:
+            cliente.close()
+        except:
+            pass
 
 
 
