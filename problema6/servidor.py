@@ -139,5 +139,24 @@ def quitar_de_sala(nombre_usuario):
         # Guardamos el cambio.
         guardar_salas()
 
-        
+ # 9. MOSTRAR LAS SALAS DISPONIBLES
+ def listar_salas():
+
+    with lock:
+
+        if not salas:
+
+            return "No existen salas."
+
+        texto = "Salas disponibles:\n"
+
+        for nombre_sala in salas:
+
+            cantidad = len(salas[nombre_sala])
+
+            texto += f"- {nombre_sala} ({cantidad} usuarios)\n"
+
+        return texto
+
+       
 
