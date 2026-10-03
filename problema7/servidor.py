@@ -454,5 +454,45 @@ def manejar_cliente(cliente, direccion):
         except:
             pass
 
+# 13. FUNCIÓN PRINCIPAL
+def main():
 
+    # Creamos el socket TCP.
+
+    servidor_proxy = socket.socket(
+        socket.AF_INET,
+        socket.SOCK_STREAM
+    )
+
+    servidor_proxy.setsockopt(
+        socket.SOL_SOCKET,
+        socket.SO_REUSEADDR,
+        1
+    )
+
+    servidor_proxy.bind(
+        (HOST, PORT)
+    )
+
+    servidor_proxy.listen(10)
+
+    print("========================================")
+    print("       PROXY HTTP - PROBLEMA 7")
+    print("========================================")
+    print(f"Proxy escuchando en {HOST}:{PORT}")
+    print("HTTP y HTTPS (CONNECT) habilitados")
+    print("Presiona CTRL+C para detener")
+    print("========================================")
+
+    while True:
+
+        cliente, direccion = servidor_proxy.accept()
+
+        hilo = threading.Thread(
+            target=manejar_cliente,
+            args=(cliente, direccion),
+            daemon=True
+        )
+
+        hilo.start()
 
