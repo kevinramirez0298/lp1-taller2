@@ -164,3 +164,112 @@ def manejar_connect(cliente, primera_linea):
 
     tunel_https(cliente, servidor)
 
+# 6. PROCESAR PETICIÓN HTTP
+def manejar_http(cliente, datos):
+
+    # Convertimos los primeros datos a texto.
+
+    try:
+
+        texto = datos.decode(
+            "iso-8859-1",
+            errors="replace"
+        )
+
+    except Exception:
+
+        cliente.close()
+        return
+
+    primera_linea = texto.split("\r\n")[0]
+
+    print("\n[HTTP] Petición recibida:")
+    print("[HTTP]", primera_linea)
+
+    # Separamos la petición.
+    
+    partes = primera_linea.split()
+
+    if len(partes) < 3:
+
+        cliente.sendall(
+            b"HTTP/1.1 400 Bad Request\r\n\r\n"
+        )
+
+        cliente.close()
+        return
+
+    metodo = partes[0]
+    url = partes[1]
+    version = partes[2]
+
+    print("[HTTP] Método:", metodo)
+    print("[HTTP] URL:", url)
+
+    # Analizamos la URL.
+
+    url_info = urlsplit(url)
+
+    if url_info.hostname:
+
+        host = url_info.hostname
+
+        puerto = url_info.port
+
+        if puerto is None:
+            puerto = 80
+
+        # La ruta que enviaremos al servidor.
+
+        ruta = url_info.path
+
+        if not ruta:
+            ruta = "/"
+
+        if url_info.query:
+
+            ruta += "?" + url_info.query
+
+    else:
+
+        host = None
+
+        puerto = 80
+
+        for linea in texto.split("\r\n"):
+
+            if linea.lower().startswith("host:"):
+
+                host = linea.split(":", 1)[1].strip()
+
+                break
+
+        if host is None:
+
+            cliente.sendall(
+                b"HTTP/1.1 400 Bad Request\r\n\r\n"
+            )
+
+            cliente.close()
+            return
+
+        ruta = url
+
+    if ":" in host:
+
+        posible_host, posible_puerto = host.rsplit(":", 1)
+
+        try:
+
+            puerto = int(posible_puerto)
+            host = posible_host
+
+        except ValueError:
+
+            pass
+
+    print(f"[HTTP] Servidor destino: {host}:{puerto}")
+    print(f"[HTTP] Ruta: {ruta}")
+
+
+
