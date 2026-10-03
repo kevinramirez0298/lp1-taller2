@@ -87,7 +87,30 @@ def enviar(socket_cliente, mensaje):
         # Si hay un error al enviar el mensaje, cerramos la conexión.
         pass
 
+# 7. ENVIAR MENSAJE A TODOS LOS USUARIOS DE UNA SALA
+def enviar_a_sala(nombre_sala, mensaje):
 
+    # Lock porque estamos leyendo información compartida.
+    with lock:
+
+        # Verificamos que la sala exista.
+        if nombre_sala not in salas:
+            return
+
+        # Hacemos una copia de los nombres.
+        nombres_usuarios = list(salas[nombre_sala])
+
+        # Obtenemos los sockets correspondientes.
+        sockets = []
+
+        for nombre_usuario in nombres_usuarios:
+
+            if nombre_usuario in usuarios:
+
+                sockets.append(
+                    usuarios[nombre_usuario]
+                )
+                
 
 
 
