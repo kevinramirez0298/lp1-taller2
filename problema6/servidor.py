@@ -484,6 +484,67 @@ QUIT
 
     return True
 
+# 12. FUNCIÓN QUE ATIENDE A CADA CLIENTE
+def atender_cliente(socket_cliente, direccion):
 
+    print(
+        f"[NUEVA CONEXIÓN] Cliente conectado desde {direccion}"
+    )
+
+    nombre_usuario = None
+
+    try:
+
+        # Pedimos el nombre.
+        enviar(
+            socket_cliente,
+            "Ingrese su nombre de usuario:"
+        )
+
+        datos = socket_cliente.recv(1024)
+
+        if not datos:
+            return
+
+        nombre_usuario = datos.decode("utf-8").strip()
+
+        # Verificamos que el nombre no esté vacío.
+        if not nombre_usuario:
+
+            enviar(
+                socket_cliente,
+                "Nombre inválido."
+            )
+
+            return
+
+        # Registramos al usuario.
+        with lock:
+
+            if nombre_usuario in usuarios:
+
+                enviar(
+                    socket_cliente,
+                    "Ese usuario ya está conectado."
+                )
+
+                return
+
+            usuarios[nombre_usuario] = socket_cliente
+
+        print(
+            f"[USUARIO] {nombre_usuario} se conectó."
+        )
+
+        enviar(
+            socket_cliente,
+            f"Bienvenido {nombre_usuario}."
+        )
+
+        enviar(
+            socket_cliente,
+            "Escribe HELP para ver los comandos."
+        )
+        
 
 
