@@ -545,6 +545,43 @@ def atender_cliente(socket_cliente, direccion):
             socket_cliente,
             "Escribe HELP para ver los comandos."
         )
+
+        # BUCLE PRINCIPAL DEL CLIENTE
+        while True:
+
+            datos = socket_cliente.recv(4096)
+
+            # Si recv devuelve vacío, el cliente se desconectó.
+            if not datos:
+                break
+
+            comando = datos.decode("utf-8")
+
+            print(
+                f"[{nombre_usuario}] {comando.strip()}"
+            )
+
+            continuar = procesar_comando(
+                nombre_usuario,
+                socket_cliente,
+                comando
+            )
+
+            if not continuar:
+                break
+
+
+    except Exception as error:
+
+        print(
+            f"[ERROR] Cliente {nombre_usuario}: {error}"
+        )
+
+
+    finally:
+
         
+
+
 
 
