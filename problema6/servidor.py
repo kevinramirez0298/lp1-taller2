@@ -115,6 +115,29 @@ def enviar_a_sala(nombre_sala, mensaje):
     for socket_cliente in sockets:
 
         enviar(socket_cliente, mensaje)
-        
 
+# 8. ELIMINAR USUARIO DE SU SALA
+def quitar_de_sala(nombre_usuario):
+
+    with lock:
+
+        # Averiguamos en qué sala estaba.
+        sala_actual = usuarios_sala.get(nombre_usuario)
+
+        # Si no estaba en ninguna sala, no hacemos nada.
+        if sala_actual is None:
+            return
+
+        # Si la sala existe, eliminamos al usuario.
+        if sala_actual in salas:
+
+            salas[sala_actual].discard(nombre_usuario)
+
+        # Eliminamos el registro del usuario.
+        usuarios_sala.pop(nombre_usuario, None)
+
+        # Guardamos el cambio.
+        guardar_salas()
+
+        
 
