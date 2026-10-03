@@ -123,4 +123,8 @@ def main():
     # 4.7 cerramos eñ socket
     socket_cliente.close()
 
+# 5. INICIAR PROGRAMA
+if __name__ == "__main__":
+    main()
 
+    
