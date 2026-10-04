@@ -62,3 +62,36 @@ turno = "X"
 
 # Esta variable indica si la partida está activa.
 partida_activa = False
+
+
+# 4. LOCK
+# Como pueden existir varios clientes al mismo tiempo,
+# usamos un Lock para evitar que dos clientes modifiquen
+# el tablero exactamente al mismo tiempo
+
+lock = threading.Lock()
+
+# 5. FUNCIÓN PARA ENVIAR MENSAJES
+def enviar(cliente, mensaje):
+    """
+    Envía un mensaje a un cliente.
+
+    cliente:
+        conexión socket del cliente
+
+    mensaje:
+        texto que queremos enviar
+    """
+
+    try:
+        cliente.sendall((mensaje + "\n").encode())
+
+    except:
+        # Si el cliente se desconectó,
+        # simplemente ignoramos el error.
+        pass
+
+
+
+
+
