@@ -338,7 +338,7 @@ def realizar_movimiento(cliente, simbolo, posicion):
         # ----------------------------------------------------
         # CAMBIAR TURNO
         # ----------------------------------------------------
-        
+
         if turno == "X":
             turno = "O"
         else:
@@ -350,6 +350,325 @@ def realizar_movimiento(cliente, simbolo, posicion):
             f"\nAhora es el turno de {turno}."
         )
 
+# 12. MANEJAR UN CLIENTE
+def manejar_cliente(cliente, direccion):
+    """
+    Esta función se ejecuta en un hilo independiente
+    para cada cliente.
+    """
+
+    global jugador_x
+    global jugador_o
+    global partida_activa
+
+
+    print(f"[+] Cliente conectado: {direccion}")
+
+
+    # --------------------------------------------------------
+    # MENÚ INICIAL
+    # --------------------------------------------------------
+
+    enviar(
+        cliente,
+        "\n========================================"
+    )
+
+    enviar(
+        cliente,
+        "       SERVIDOR TIC-TAC-TOE"
+    )
+
+    enviar(
+        cliente,
+        "========================================"
+    )
+
+    enviar(
+        cliente,
+        "Escribe:"
+    )
+
+    enviar(
+        cliente,
+        "1 - JUGAR"
+    )
+
+    enviar(
+        cliente,
+        "2 - ESPECTADOR"
+    )
+
+
+    # --------------------------------------------------------
+    # RECIBIR OPCIÓN
+    # --------------------------------------------------------
+
+    try:
+
+        opcion = cliente.recv(1024).decode().strip()
+
+    except:
+
+        cliente.close()
+        return
+
+
+    # ========================================================
+    # OPCIÓN 1: JUGAR
+    # ========================================================
+
+    if opcion == "1":
+
+        with lock:
+
+            # -----------------------------------------------
+            # ASIGNAR JUGADOR X
+            # -----------------------------------------------
+
+            if jugador_x is None:
+
+                jugador_x = cliente
+
+                enviar(
+                    cliente,
+                    "Eres el jugador X."
+                )
+
+                print(
+                    f"[+] {direccion} es jugador X"
+                )
+
+
+            # -----------------------------------------------
+            # ASIGNAR JUGADOR O
+            # -----------------------------------------------
+
+            elif jugador_o is None:
+
+                jugador_o = cliente
+
+                enviar(
+                    cliente,
+                    "Eres el jugador O."
+                )
+
+                print(
+                    f"[+] {direccion} es jugador O"
+                )
+
+
+                # -------------------------------------------
+                # YA TENEMOS DOS JUGADORES
+                # -------------------------------------------
+
+                partida_activa = True
+
+                notificar(
+                    "\n🎮 PARTIDA CREADA"
+                )
+
+                notificar(
+                    "Jugador X y jugador O están listos."
+                )
+
+                enviar_tablero()
+
+                notificar(
+                    "Comienza el jugador X."
+                )
+
+
+            # -----------------------------------------------
+            # YA HAY DOS JUGADORES
+            # -----------------------------------------------
+
+            else:
+
+                enviar(
+                    cliente,
+                    "La partida ya tiene dos jugadores."
+                )
+
+                enviar(
+                    cliente,
+                    "Puedes entrar como espectador."
+                )
+
+                cliente.close()
+
+                return
+
+
+        # ----------------------------------------------------
+        # BUCLE DEL JUGADOR
+        # ----------------------------------------------------
+
+        while True:
+
+            try:
+
+                datos = cliente.recv(1024).decode().strip()
+
+                # Si no recibimos nada,
+                # significa que se desconectó.
+                if not datos:
+                    break
+
+
+                # --------------------------------------------
+                # COMANDO JUGAR
+                # --------------------------------------------
+
+                if datos.upper().startswith("JUGAR"):
+
+                    partes = datos.split()
+
+
+                    # Comprobar formato:
+                    #
+                    # JUGAR 5
+                    #
+
+                    if len(partes) != 2:
+
+                        enviar(
+                            cliente,
+                            "Uso correcto: JUGAR número"
+                        )
+
+                        continue
+
+
+                    try:
+
+                        posicion = int(partes[1])
+
+                    except ValueError:
+
+                        enviar(
+                            cliente,
+                            "La posición debe ser un número."
+                        )
+
+                        continue
+
+
+                    # Determinar si este cliente es X u O.
+                    if cliente == jugador_x:
+
+                        simbolo = "X"
+
+                    elif cliente == jugador_o:
+
+                        simbolo = "O"
+
+                    else:
+
+                        enviar(
+                            cliente,
+                            "No eres un jugador activo."
+                        )
+
+                        continue
+
+
+                    # Realizamos el movimiento.
+                    realizar_movimiento(
+                        cliente,
+                        simbolo,
+                        posicion
+                    )
+
+
+                else:
+
+                    enviar(
+                        cliente,
+                        "Comando no reconocido."
+                    )
+
+
+            except:
+
+                break
+
+
+    # ========================================================
+    # OPCIÓN 2: ESPECTADOR
+    # ========================================================
+
+    elif opcion == "2":
+
+        with lock:
+
+            espectadores.append(cliente)
+
+        print(
+            f"[+] Nuevo espectador: {direccion}"
+        )
+
+        enviar(
+            cliente,
+            "\n👀 Eres un espectador."
+        )
+
+        enviar(
+            cliente,
+            "Puedes observar la partida."
+        )
+
+        # Mostrar el tablero actual.
+        enviar_tablero()
+
+
+        # ----------------------------------------------------
+        # MANTENER AL ESPECTADOR CONECTADO
+        # ----------------------------------------------------
+
+        while True:
+
+            try:
+
+                datos = cliente.recv(1024).decode()
+
+                if not datos:
+                    break
+
+            except:
+
+                break
+
+
+        # Eliminar espectador.
+        with lock:
+
+            if cliente in espectadores:
+
+                espectadores.remove(cliente)
+
+
+    # ========================================================
+    # OPCIÓN INCORRECTA
+    # ========================================================
+
+    else:
+
+        enviar(
+            cliente,
+            "Opción inválida."
+        )
+
+
+    # --------------------------------------------------------
+    # CERRAR CONEXIÓN
+    # --------------------------------------------------------
+
+    cliente.close()
+
+    print(
+        f"[-] Cliente desconectado: {direccion}"
+    )
 
         
 
