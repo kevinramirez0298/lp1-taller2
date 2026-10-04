@@ -91,7 +91,52 @@ def enviar(cliente, mensaje):
         # simplemente ignoramos el error.
         pass
 
+# 6. FUNCIÓN PARA MOSTRAR EL TABLERO
+def mostrar_tablero():
+    """
+    Convierte el tablero en un texto bonito
+    para enviarlo a los clientes.
+    """
 
+    texto = "\n"
+
+    texto += " " + tablero[0] + " | " + tablero[1] + " | " + tablero[2] + "\n"
+    texto += "---+---+---\n"
+
+    texto += " " + tablero[3] + " | " + tablero[4] + " | " + tablero[5] + "\n"
+    texto += "---+---+---\n"
+
+    texto += " " + tablero[6] + " | " + tablero[7] + " | " + tablero[8] + "\n"
+
+    return texto
+
+# 7. FUNCIÓN PARA ENVIAR EL TABLERO A TODOS
+def enviar_tablero():
+    """
+    Envía el tablero actualizado a:
+    
+    - Jugador X
+    - Jugador O
+    - Todos los espectadores
+    """
+
+    mensaje = "\n========== TABLERO ==========\n"
+    mensaje += mostrar_tablero()
+    mensaje += "=============================\n"
+
+    # Enviar al jugador X
+    if jugador_x is not None:
+        enviar(jugador_x, mensaje)
+
+    # Enviar al jugador O
+    if jugador_o is not None:
+        enviar(jugador_o, mensaje)
+
+    # Enviar a los espectadores
+    for espectador in espectadores:
+        enviar(espectador, mensaje)
+
+        
 
 
 
