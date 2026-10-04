@@ -670,6 +670,74 @@ def manejar_cliente(cliente, direccion):
         f"[-] Cliente desconectado: {direccion}"
     )
 
+
+# 13. FUNCIÓN PRINCIPAL
+def main():
+
+    # Creamos el socket TCP.
+    servidor = socket.socket(
+        socket.AF_INET,
+        socket.SOCK_STREAM
+    )
+
+
+    # Permite reutilizar el puerto rápidamente
+    # después de cerrar el servidor.
+    servidor.setsockopt(
+        socket.SOL_SOCKET,
+        socket.SO_REUSEADDR,
+        1
+    )
+
+
+    # Asociamos el socket con HOST y PORT.
+    servidor.bind(
+        (HOST, PORT)
+    )
+
+
+    # Ponemos el servidor a escuchar.
+    servidor.listen()
+
+
+    # --------------------------------------------------------
+    # MENSAJE DE INICIO
+    # --------------------------------------------------------
+
+    print()
+    print("========================================")
+    print("       SERVIDOR TIC-TAC-TOE")
+    print("========================================")
+    print()
+    print(f"Servidor escuchando en {HOST}:{PORT}")
+    print()
+
+
+    # --------------------------------------------------------
+    # ESPERAR CLIENTES
+    # --------------------------------------------------------
+
+    while True:
+
+        # Esperamos una nueva conexión.
+        cliente, direccion = servidor.accept()
+
+
+        # Creamos un hilo para ese cliente.
+        hilo = threading.Thread(
+            target=manejar_cliente,
+            args=(cliente, direccion)
+        )
+
+
+        # Iniciamos el hilo.
+        hilo.start()
+
+# 14. PUNTO DE ENTRADA
+if __name__ == "__main__":
+
+    main()
+    
         
 
 
