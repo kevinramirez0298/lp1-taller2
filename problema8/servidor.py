@@ -197,6 +197,159 @@ def comprobar_ganador():
     # Si nadie ganó todavía.
     return None
 
+# 10. FUNCIÓN PARA COMPROBAR EMPATE
+def comprobar_empate():
+    """
+    Si no quedan posiciones vacías,
+    significa que hubo empate.
+    """
+
+    return " " not in tablero
+
+# 11. FUNCIÓN PARA REALIZAR UN MOVIMIENTO
+def realizar_movimiento(cliente, simbolo, posicion):
+    """
+    Intenta realizar un movimiento.
+
+    cliente:
+        jugador que intenta jugar
+
+    simbolo:
+        X u O
+
+    posicion:
+        posición del tablero
+    """
+
+    global turno
+    global partida_activa
+
+    # LOCK
+    # Protegemos el tablero para que dos jugadores
+    # no puedan modificarlo simultáneamente.
+    #
+    with lock:
+
+        # ----------------------------------------------------
+        # Comprobar si es el turno correcto
+        # ----------------------------------------------------
+
+        if turno != simbolo:
+
+            enviar(
+                cliente,
+                "ERROR: No es tu turno."
+            )
+
+            return
+
+
+        # ----------------------------------------------------
+        # Comprobar posición
+        # ----------------------------------------------------
+
+        if posicion < 1 or posicion > 9:
+
+            enviar(
+                cliente,
+                "ERROR: La posición debe estar entre 1 y 9."
+            )
+
+            return
+
+
+        # Convertimos de posición humana
+        # a índice de Python.
+        #
+        # El usuario escribe:
+        #
+        # 1
+        #
+        # Python utiliza:
+        #
+        # 0
+        #
+        indice = posicion - 1
+
+
+        # ----------------------------------------------------
+        # Comprobar si la casilla está ocupada
+        # ----------------------------------------------------
+
+        if tablero[indice] != " ":
+
+            enviar(
+                cliente,
+                "ERROR: Esa casilla ya está ocupada."
+            )
+
+            return
+
+
+        # ----------------------------------------------------
+        # REALIZAR EL MOVIMIENTO
+        # ----------------------------------------------------
+
+        tablero[indice] = simbolo
+
+
+        # Avisamos a todos.
+        notificar(
+            f"El jugador {simbolo} jugó en la posición {posicion}."
+        )
+
+
+        # Actualizamos el tablero.
+        enviar_tablero()
+
+
+        # ----------------------------------------------------
+        # COMPROBAR GANADOR
+        # ----------------------------------------------------
+
+        ganador = comprobar_ganador()
+
+        if ganador is not None:
+
+            notificar(
+                f"\n🎉 GANADOR: El jugador {ganador} ha ganado."
+            )
+
+            partida_activa = False
+
+            return
+
+
+        # ----------------------------------------------------
+        # COMPROBAR EMPATE
+        # ----------------------------------------------------
+
+        if comprobar_empate():
+
+            notificar(
+                "\n🤝 EMPATE. No quedan posiciones libres."
+            )
+
+            partida_activa = False
+
+            return
+
+
+        # ----------------------------------------------------
+        # CAMBIAR TURNO
+        # ----------------------------------------------------
+        
+        if turno == "X":
+            turno = "O"
+        else:
+            turno = "X"
+
+
+        # Avisamos de quién es el turno.
+        notificar(
+            f"\nAhora es el turno de {turno}."
+        )
+
 
         
 
