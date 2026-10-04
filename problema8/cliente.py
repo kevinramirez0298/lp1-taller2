@@ -138,4 +138,52 @@ def main():
         (opcion + "\n").encode()
     )
 
+    # BUCLE PRINCIPAL
 
+    while activo:
+
+        try:
+
+            mensaje = input("> ")
+
+
+            # Si escribimos salir,
+            # cerramos el cliente.
+            if mensaje.lower() == "salir":
+
+                activo = False
+
+                break
+
+
+            # Enviamos el comando al servidor.
+            cliente.sendall(
+                (mensaje + "\n").encode()
+            )
+
+
+        except KeyboardInterrupt:
+
+            print("\nCliente cerrado.")
+
+            activo = False
+
+            break
+
+
+        except:
+
+            activo = False
+
+            break
+
+    # CERRAR SOCKET
+
+    cliente.close()
+
+    print("Conexión cerrada.")
+
+# 6. PUNTO DE ENTRADA
+if __name__ == "__main__":
+
+    main()
