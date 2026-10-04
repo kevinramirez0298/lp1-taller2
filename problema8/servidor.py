@@ -136,6 +136,68 @@ def enviar_tablero():
     for espectador in espectadores:
         enviar(espectador, mensaje)
 
+# 8. FUNCIÓN PARA NOTIFICAR A TODOS
+def notificar(mensaje):
+    """
+    Envía un mensaje a todos los participantes.
+    """
+
+    # Enviar a X
+    if jugador_x is not None:
+        enviar(jugador_x, mensaje)
+
+    # Enviar a O
+    if jugador_o is not None:
+        enviar(jugador_o, mensaje)
+
+    # Enviar a espectadores
+    for espectador in espectadores:
+        enviar(espectador, mensaje)
+
+# 9. FUNCIÓN PARA COMPROBAR GANADOR
+def comprobar_ganador():
+    """
+    Comprueba si X o O consiguió tres posiciones
+    seguidas.
+    """
+
+    # Todas las combinaciones posibles para ganar.
+    combinaciones = [
+
+        # Filas
+        (0, 1, 2),
+        (3, 4, 5),
+        (6, 7, 8),
+
+        # Columnas
+        (0, 3, 6),
+        (1, 4, 7),
+        (2, 5, 8),
+
+        # Diagonales
+        (0, 4, 8),
+        (2, 4, 6)
+    ]
+
+    # Revisamos cada combinación.
+    for a, b, c in combinaciones:
+
+        # Comprobamos que no estén vacías
+        # y que las tres posiciones tengan
+        # el mismo jugador.
+        if (
+            tablero[a] != " "
+            and tablero[a] == tablero[b]
+            and tablero[b] == tablero[c]
+        ):
+
+            # Devolvemos X u O.
+            return tablero[a]
+
+    # Si nadie ganó todavía.
+    return None
+
+
         
 
 
